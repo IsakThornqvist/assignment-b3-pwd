@@ -6,3 +6,4 @@
  */
 
 console.log('TODO: Start working on the assignment')
+console.log('test')
