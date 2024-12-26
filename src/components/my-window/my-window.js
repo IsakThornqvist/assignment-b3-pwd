@@ -7,6 +7,7 @@ customElements.define('my-window',
    */
   class extends HTMLElement {
     #myWindow
+    #abortController = new AbortController()
 
     /**
      *
@@ -16,20 +17,39 @@ customElements.define('my-window',
 
       this.attachShadow({ mode: 'open' })
       this.shadowRoot.appendChild(template.content.cloneNode(true))
-      this.#myWindow = this.shadowRoot.querySelector()
+      this.#myWindow = this.shadowRoot.querySelector('#myWindow')
+    }
+
+    /**
+     *
+     */
+    connectedCallback () {
+      /*       this.#myWindow.addEventListener('click', event => {
+        console.log('window added to shadowDOM')
+      }) */
+      if (this.#myWindow) {
+        console.log('window added to shadowDOM')
+      } else {
+        console.error('Failed to find #myWindow in Shadow DOM')
+      }
+    }
+
+    /**
+     *
+     */
+    disconnectedCallback () {
+
     }
   })
 
+// service worker
+// egen fil
+// visas bra i videon
 
+// cache storage och cacha saker måste jag kolla upp
+// man  kan skapa en async function
 
-  // service worker
-  // egen fil
-  // visas bra i videon
+// .webmanifest ????
+// peka ut manifest filen i index.html
 
-  // cache storage och cacha saker måste jag kolla upp
-  // man  kan skapa en async function
-  
-  // .webmanifest ????
-  // peka ut manifest filen i index.html
-  
-  // routing sidan ska inter laddas om 
+// routing sidan ska inter laddas om
