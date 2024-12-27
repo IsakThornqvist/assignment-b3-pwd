@@ -11,7 +11,16 @@ customElements.define('memory-game',
     #button4x4
     #button4x2
     #button2x2
-    #colorVariations = ['blueviolet', 'lightgreen', 'blue', 'red', 'orange', 'pink', 'green', 'lightblue']
+    #tileImages = [
+      './img/bellingham-memory-tile.png',
+      './img/valverde-memory-tile.png',
+      './img/mbappe-memory-tile.png',
+      './img/rodrygo-memory-tile.png',
+      './img/rudiger-memory-tile.png',
+      './img/tchouameni-memory-tile.png',
+      './img/camavinga-memory-tile.png',
+      './img/vinicius-memory-tile.png'
+    ]
 
     /**
      *
@@ -72,9 +81,15 @@ customElements.define('memory-game',
     /**
      *
      */
-    createTileColor () {
-      const colors = this.#colorVariations
-      console.log(colors)
+
+
+    /**
+     *
+     */
+    clearTiles () {
+      while (this.#memoryGame.firstChild) {
+        this.#memoryGame.removeChild(this.#memoryGame.firstChild)
+      }
     }
 
     /**
@@ -84,40 +99,35 @@ customElements.define('memory-game',
      * @param {number} columns - Number of columns.
      */
     createTiles (rows, columns) {
-      // Clear previous tiles (if any)
-      this.#memoryGame.innerHTML = ''
-
+      this.clearTiles()
       // Dynamic adjustment of grid layout based on rows and columns
-      const tileSize = '130px' // Size of each tile
+      const tileSize = '100px' // Size of each tile
       this.#memoryGame.style.gridTemplateColumns = `repeat(${columns}, ${tileSize})` // Column size
       this.#memoryGame.style.gridTemplateRows = `repeat(${rows}, ${tileSize})` // Row size
 
-      // Create as many tiles as needed
+      // Calculate the number of unique images needed
       const totalTiles = rows * columns
+      const uniqueImagesNeeded = totalTiles / 2 // Each image will be used 2 times
 
-      // Calculate the number of unique colors needed
-      const uniqueColorsNeeded = totalTiles / 2 // Each color will be used 2 times
-
-      // Create a list of colors, duplicate each color to be used 2 times
-      let colors = []
-      for (let i = 0; i < uniqueColorsNeeded; i++) {
-        colors.push(this.#colorVariations[i % this.#colorVariations.length]) // Cycle through colors if needed
+      // Create a list of images, duplicate each to be used 2 times
+      let images = []
+      for (let i = 0; i < uniqueImagesNeeded; i++) {
+        images.push(this.#tileImages[i % this.#tileImages.length]) // Cycle through images if needed
       }
+      images = [...images, ...images] // Duplicate images to match pairs
 
-      // Double check that we have enough colors for all tiles
-      colors = [...colors, ...colors] // Duplicate so that we have two of each color
+      this.shuffleMemory(images) // Shuffle the images
 
-      this.shuffleArray(colors) // Shuffle the colors
-
-      // Create tiles and assign colors
+      // Create tiles and assign images
       for (let i = 0; i < totalTiles; i++) {
         const newTile = document.createElement('flipping-tile')
-        newTile.textContent = i + 1
-        newTile.setAttribute('data-tile-number', i + 1) // Assign a name/number
+        newTile.setAttribute('data-tile-number', i + 1) // Assign a unique identifier
 
-        // Get the backside element and set the color
+        // Set the back side image
         const backSide = newTile.shadowRoot.querySelector('#back')
-        backSide.style.backgroundColor = colors[i] // Assign random color
+        backSide.style.backgroundImage = `url('${images[i]}')`
+        backSide.style.backgroundSize = 'cover'
+        backSide.style.backgroundPosition = 'center'
 
         // Add the new tile to the game board
         this.#memoryGame.appendChild(newTile)
@@ -128,7 +138,7 @@ customElements.define('memory-game',
      *
      * @param arr
      */
-    shuffleArray (arr) {
+    shuffleMemory (arr) {
       for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]] // Swap elements

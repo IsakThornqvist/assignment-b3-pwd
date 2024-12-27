@@ -48,7 +48,7 @@ template.innerHTML = `
 }
 
 #back {
-  background-color: lightgreen;
+  background-color: rgb(63, 104, 192);
   transform: rotateY(180deg); /* Rotated 180 degrees for the back side */
 }
 

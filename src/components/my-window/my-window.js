@@ -55,7 +55,7 @@ customElements.define('my-window',
         console.log('down')
       })
       this.#windowTitle.addEventListener('mousemove', event => {
-        console.log('movbe')
+        console.log('move')
       })
       this.#windowTitle.addEventListener('mouseup', event => {
         console.log('up')
