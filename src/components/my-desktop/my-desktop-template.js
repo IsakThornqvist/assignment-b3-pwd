@@ -4,7 +4,9 @@ template.innerHTML = `
 <div id='desktopContainer'> 
     <img id='backGroundImage' src='img/RM-LOGO.png' alt='Real Madrid logo'>
     <div id='desktop'>
-        <my-window id='my-window' class='hidden'> </my-window>
+        <my-window id='my-window' class='hidden'> 
+            <memory-game> </memory-game>
+        </my-window>
     </div>
 </div>
 
@@ -25,7 +27,7 @@ template.innerHTML = `
     .hidden {
         display: none;
     }
-    
+
     .iconImage {
         width: 40px; /* Sätt storleken på bilderna */
         height: auto; /* Bevarar proportionerna */

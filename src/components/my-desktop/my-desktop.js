@@ -1,5 +1,6 @@
 import { template } from './my-desktop-template.js'
 import '../my-window/index.js'
+import '../memory-game/index.js'
 
 customElements.define('my-desktop',
 

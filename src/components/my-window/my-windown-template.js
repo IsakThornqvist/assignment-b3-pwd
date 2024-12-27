@@ -21,7 +21,6 @@ template.innerHTML = `
   top: 5%;
   left: 5%;
   height: min-content;
-  width: 300px;
   border-radius: 8px;
   border: solid 1px #e2e2e2;
   background-color: white;
