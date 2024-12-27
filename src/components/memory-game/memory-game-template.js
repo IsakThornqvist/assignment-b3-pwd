@@ -8,9 +8,9 @@ template.innerHTML = `
 
 <div id='buttonContainer'> 
 <button id='resetButton'> Reset Game</button>
-<button id='button4x4'> 4x4</button>
-<button id='button4x2'> 4x2</button>
-<button id='button2x2'> 2x2</button>
+<button id='button4x4'>4x4</button>
+<button id='button4x2'>4x2</button>
+<button id='button2x2'>2x2</button>
 </div>
 
 

@@ -43,7 +43,7 @@ template.innerHTML = `
 }
 
 #front {
-  background-color: yellow;
+  background-color: rgb(241, 190, 48);
   transform: rotateY(0deg); /* Default position for the front side */
 }
 

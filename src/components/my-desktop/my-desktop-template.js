@@ -79,7 +79,7 @@ template.innerHTML = `
     .appIcon {
         background-color: #333;
         color: black;
-        border: 2px solid yellow;
+        border: 2px solid rgb(241, 190, 48);
         border-radius: 5px;
         cursor: pointer;
         transition: 0.5s;
@@ -92,7 +92,7 @@ template.innerHTML = `
     }
 
     .appIcon:hover {
-        background-color: yellow;
+        background-color: rgb(241, 190, 48);
     }
 </style>
 `
