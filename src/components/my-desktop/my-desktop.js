@@ -12,6 +12,7 @@ customElements.define('my-desktop',
     #appTwo
     #appThree
     #myWindow
+
     /**
      *
      */
@@ -33,15 +34,15 @@ customElements.define('my-desktop',
     connectedCallback () {
       this.#appOne.addEventListener('click', event => {
         console.log('App One Clicked')
-        this.#myWindow.classList.toggle('hidden')
+        this.#myWindow.classList.remove('hidden')
       })
       this.#appTwo.addEventListener('click', event => {
         console.log('App Two Clicked')
-        this.#myWindow.classList.toggle('hidden')
+        this.#myWindow.classList.remove('hidden')
       })
       this.#appThree.addEventListener('click', event => {
         console.log('App Three Clicked')
-        this.#myWindow.classList.toggle('hidden')
+        this.#myWindow.classList.remove('hidden')
       })
 
       if (this.#myDesktop) {

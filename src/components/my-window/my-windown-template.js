@@ -4,7 +4,7 @@ template.innerHTML = `
 <div id="myWindow">
   <div id="windowHeader">
     <span id="windowTitle">Hala Madrid</span>
-    <button id="closeButton" title="Close Window">&times;</button>
+    <button id="closeButton">&times</button>
   </div>
   <div id="windowContent"> 
     <slot></slot>
@@ -13,6 +13,10 @@ template.innerHTML = `
 </div>
 
 <style>
+
+    .hidden {
+        display: none;
+    }
 #myWindow {
   top: 5%;
   left: 5%;

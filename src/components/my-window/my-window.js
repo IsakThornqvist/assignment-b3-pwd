@@ -7,6 +7,8 @@ customElements.define('my-window',
    */
   class extends HTMLElement {
     #myWindow
+    #closeButton
+    #windowTitle
     #abortController = new AbortController()
 
     /**
@@ -18,6 +20,8 @@ customElements.define('my-window',
       this.attachShadow({ mode: 'open' })
       this.shadowRoot.appendChild(template.content.cloneNode(true))
       this.#myWindow = this.shadowRoot.querySelector('#myWindow')
+      this.#closeButton = this.shadowRoot.querySelector('#closeButton')
+      this.#windowTitle = this.shadowRoot.querySelector('#windowTitle')
     }
 
     /**
@@ -32,6 +36,30 @@ customElements.define('my-window',
       } else {
         console.error('Failed to find #myWindow in Shadow DOM')
       }
+
+      this.#closeButton.addEventListener('click', event => {
+        this.classList.add('hidden')
+        console.log('window closed')
+      })
+
+      this.#windowTitle.addEventListener('click', event => {
+        console.log('title clicked')
+      })
+    }
+
+    /**
+     *
+     */
+    moveWindow () {
+      this.#windowTitle.addEventListener('mousedown', event => {
+        console.log('down')
+      })
+      this.#windowTitle.addEventListener('mousemove', event => {
+        console.log('movbe')
+      })
+      this.#windowTitle.addEventListener('mouseup', event => {
+        console.log('up')
+      })
     }
 
     /**
