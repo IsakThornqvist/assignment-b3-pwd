@@ -10,6 +10,11 @@ customElements.define('my-window',
     #closeButton
     #windowTitle
     #abortController = new AbortController()
+    #startX // current cord
+    #startY // current cord
+    #newX // how much it moved
+    #newY // how much it moved
+    #isDragging = false
 
     /**
      *
@@ -28,9 +33,6 @@ customElements.define('my-window',
      *
      */
     connectedCallback () {
-      /*       this.#myWindow.addEventListener('click', event => {
-        console.log('window added to shadowDOM')
-      }) */
       if (this.#myWindow) {
         console.log('window added to shadowDOM')
       } else {
@@ -45,21 +47,54 @@ customElements.define('my-window',
       this.#windowTitle.addEventListener('click', event => {
         console.log('title clicked')
       })
+
+      this.#windowTitle.addEventListener('mousedown', e => this.mouseDown(e))
+
+      document.addEventListener('mousemove', e => this.mouseMove(e))
+
+      document.addEventListener('mouseup', e => this.mouseUp(e))
     }
 
     /**
      *
+     * @param e
      */
-    moveWindow () {
-      this.#windowTitle.addEventListener('mousedown', event => {
-        console.log('down')
-      })
-      this.#windowTitle.addEventListener('mousemove', event => {
-        console.log('move')
-      })
-      this.#windowTitle.addEventListener('mouseup', event => {
-        console.log('up')
-      })
+    mouseDown (e) {
+      this.#isDragging = true
+      this.#startX = e.clientX
+      this.#startY = e.clientY
+    }
+
+    /**
+     *
+     * @param e
+     */
+    mouseMove (e) {
+      if (!this.#isDragging) return
+      this.#newX = this.#startX - e.clientX
+      this.#newY = this.#startY - e.clientY
+
+      this.#startX = e.clientX
+      this.#startY = e.clientY
+
+      this.#myWindow.style.top = (this.#myWindow.offsetTop - this.#newY) + 'px'
+      this.#myWindow.style.left = (this.#myWindow.offsetLeft - this.#newX) + 'px'
+
+      console.log('newX', this.#newX)
+      console.log('newY', this.#newY)
+      console.log('startX', this.#startX)
+      console.log('startY', this.#startY)
+    }
+
+    /**
+     *
+     * @param e
+     */
+    mouseUp (e) {
+      if (this.#isDragging) {
+        console.log('Dragging ended')
+        this.#isDragging = false
+      }
     }
 
     /**

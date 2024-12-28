@@ -82,7 +82,6 @@ customElements.define('memory-game',
      *
      */
 
-
     /**
      *
      */

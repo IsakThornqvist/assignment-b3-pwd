@@ -25,7 +25,7 @@ template.innerHTML = `
   border: solid 1px #e2e2e2;
   background-color: white;
   z-index: 100;
-  position: absolute;
+  position: fixed;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
   overflow: hidden;
 }
