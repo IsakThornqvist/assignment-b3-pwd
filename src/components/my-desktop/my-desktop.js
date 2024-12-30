@@ -13,6 +13,9 @@ customElements.define('my-desktop',
     #appTwo
     #appThree
     #myWindow
+    #myWindowTwo
+    #myWindowThree
+    #highestZIndex = 1
 
     /**
      *
@@ -27,6 +30,8 @@ customElements.define('my-desktop',
       this.#appTwo = this.shadowRoot.querySelector('#appLogo2')
       this.#appThree = this.shadowRoot.querySelector('#appLogo3')
       this.#myWindow = this.shadowRoot.querySelector('#my-window')
+      this.#myWindowTwo = this.shadowRoot.querySelector('#my-window-two')
+      this.#myWindowThree = this.shadowRoot.querySelector('#my-window-three')
     }
 
     /**
@@ -35,15 +40,15 @@ customElements.define('my-desktop',
     connectedCallback () {
       this.#appOne.addEventListener('click', event => {
         console.log('App One Clicked')
-        this.#myWindow.classList.remove('hidden')
+        this.openWindowComponent(this.#myWindow)
       })
       this.#appTwo.addEventListener('click', event => {
         console.log('App Two Clicked')
-        this.#myWindow.classList.remove('hidden')
+        this.openWindowComponent(this.#myWindowTwo)
       })
       this.#appThree.addEventListener('click', event => {
         console.log('App Three Clicked')
-        this.#myWindow.classList.remove('hidden')
+        this.openWindowComponent(this.#myWindowThree)
       })
 
       if (this.#myDesktop) {
@@ -51,6 +56,25 @@ customElements.define('my-desktop',
       } else {
         console.error('Failed to find desktop in Shadow DOM')
       }
+    }
+
+    /**
+     *
+     * @param window
+     */
+    bringUpToFront (window) {
+      this.#highestZIndex += 1
+      window.style.zIndex = this.#highestZIndex
+      console.log(window, 'Brought to front with z-index:', this.#highestZIndex)
+    }
+
+    /**
+     *
+     * @param window
+     */
+    openWindowComponent (window) {
+      window.classList.remove('hidden')
+      this.bringUpToFront(window)
     }
 
     /**

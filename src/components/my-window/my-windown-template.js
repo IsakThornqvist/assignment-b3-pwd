@@ -8,7 +8,6 @@ template.innerHTML = `
   </div>
   <div id="windowContent"> 
     <slot></slot>
-    <p>Real Madrid is the best football team in the world, we are gonna win it all this season, siiiiuuuuuu</p>
   </div>
 </div>
 
@@ -24,7 +23,7 @@ template.innerHTML = `
   border-radius: 8px;
   border: solid 1px #e2e2e2;
   background-color: white;
-  z-index: 100;
+  z-index: 1;
   position: fixed;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
   overflow: hidden;

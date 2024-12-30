@@ -6,6 +6,14 @@ template.innerHTML = `
     <div id='desktop'>
         <my-window id='my-window' class='hidden'> 
             <memory-game> </memory-game>
+            <p>Real Madrid is the best football team in the world, we are gonna win it all this season, siiiiuuuuuu</p>
+        </my-window>
+        <my-window id='my-window-two' class='hidden'>
+            <p> second window</p>
+        </my-window>
+
+        <my-window id='my-window-three' class='hidden'>
+            <p> third window</p>
         </my-window>
     </div>
 </div>
@@ -24,6 +32,11 @@ template.innerHTML = `
 
 <style>
 
+#my-window,
+#my-window-two,
+#my-window-three {
+  position: absolute; 
+}
     .hidden {
         display: none;
     }
