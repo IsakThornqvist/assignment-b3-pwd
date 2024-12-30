@@ -51,6 +51,11 @@ customElements.define('my-desktop',
         this.openWindowComponent(this.#myWindowThree)
       })
 
+      this.shadowRoot.addEventListener('window-clicked', event => {
+        console.log('Window clicked:', event.detail.window)
+        this.bringUpToFront(event.detail.window)
+      })
+
       if (this.#myDesktop) {
         console.log('desktop added to shadowDOM')
       } else {

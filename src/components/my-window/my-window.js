@@ -39,19 +39,22 @@ customElements.define('my-window',
         console.error('Failed to find #myWindow in Shadow DOM')
       }
 
+      this.#myWindow.addEventListener('click', () => {
+        this.dispatchEvent(new CustomEvent('window-clicked', {
+          bubbles: true,
+          composed: true,
+          detail: { window: this }
+        }))
+      })
+
       this.#closeButton.addEventListener('click', event => {
         this.classList.add('hidden')
         console.log('window closed')
       })
 
-      this.#windowTitle.addEventListener('click', event => {
-        console.log('title clicked')
-      })
-
       this.#windowTitle.addEventListener('mousedown', e => this.mouseDown(e))
 
       document.addEventListener('mousemove', e => this.mouseMove(e))
-
       document.addEventListener('mouseup', e => this.mouseUp(e))
     }
 
@@ -60,6 +63,11 @@ customElements.define('my-window',
      * @param e
      */
     mouseDown (e) {
+      this.dispatchEvent(new CustomEvent('window-clicked', {
+        bubbles: true,
+        composed: true,
+        detail: { window: this }
+      }))
       this.#isDragging = true
       this.#startX = e.clientX
       this.#startY = e.clientY
