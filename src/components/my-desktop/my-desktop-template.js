@@ -11,9 +11,9 @@ template.innerHTML = `
         <my-window id='my-window-two' class='hidden'>
             <p> second window</p>
         </my-window>
-
+        
         <my-window id='my-window-three' class='hidden'>
-            <p> third window</p>
+            <quiz-application> </quiz-application>
         </my-window>
     </div>
 </div>
