@@ -52,7 +52,7 @@ customElements.define('flipping-tile',
     connectedCallback () {
       this.#abortController = new AbortController()
       const abortSignal = this.#abortController.signal
-      this.handleBacksideImageVisibility()
+      // this.handleBacksideImageVisibility()
 
       this.#flippingTile.addEventListener('click', (event) =>
         this.#flipTheTile(),
@@ -67,31 +67,29 @@ customElements.define('flipping-tile',
       this.#abortController.abort()
     }
 
-    /**
-     * Används för att dölja standardbilden
-     */
+    /*
     handleBacksideImageVisibility () {
 
     }
 
-    /**
-     *
-     */
     handleHiddenTile () {
     }
 
-    /**
-     *
-     */
     handleFucusedTile () {
 
     }
-
+ */
     /**
      *
      */
     #flipTheTile () {
       const tileFlipped = this.#flippingTile.style.transform === 'rotateY(180deg)'
       this.#flippingTile.style.transform = tileFlipped ? 'rotateY(0deg)' : 'rotateY(180deg)'
+      console.log('tile flipped')
+      this.dispatchEvent(new CustomEvent('tile-flipped', {
+        bubbles: true,
+        composed: true,
+        detail: { tile: this }
+      }))
     }
   })

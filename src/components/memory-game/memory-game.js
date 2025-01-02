@@ -22,6 +22,9 @@ customElements.define('memory-game',
       './img/vinicius-memory-tile.png'
     ]
 
+    #selectedTiles
+    #shuffledImages
+
     /**
      *
      */
@@ -34,6 +37,8 @@ customElements.define('memory-game',
       this.#button4x4 = this.shadowRoot.querySelector('#button4x4')
       this.#button4x2 = this.shadowRoot.querySelector('#button4x2')
       this.#button2x2 = this.shadowRoot.querySelector('#button2x2')
+      this.#selectedTiles = []
+      this.shuffledImages = this.#shuffledImages
     }
 
     /**
@@ -63,6 +68,16 @@ customElements.define('memory-game',
         this.createTiles(rows, columns)
       })
 
+      this.shadowRoot.addEventListener('tile-flipped', event => {
+        const tile = event.detail.tile // Hämtar den klickade brickan
+        const tileNumber = tile.getAttribute('data-tile-number') // Hämtar data-tile-number
+        console.log('tile flipped custom event', tile)
+        console.log(`Tile ${tileNumber} selected`)
+        const imageIndex = tileNumber - 1
+        const imageForTile = this.shuffledImages[imageIndex]
+        console.log(`Image for tile ${tileNumber}:`, imageForTile)
+      })
+
       console.log('testtest')
 
       // Get rows and columns from attributes, if not present set to default values (4x4)
@@ -81,6 +96,37 @@ customElements.define('memory-game',
     /**
      *
      */
+
+    /**
+     *
+     * @param event
+     */
+    handleTileFlipp (event) {
+      const tile = event.detail.tile
+
+      this.#selectedTiles.push(tile)
+    }
+
+    /**
+     *
+     */
+    checkForMatchingTile () {
+
+    }
+
+    /**
+     *
+     */
+    checkGameOver () {
+
+    }
+
+    /**
+     *
+     */
+    resetGame () {
+
+    }
 
     /**
      *
@@ -115,7 +161,7 @@ customElements.define('memory-game',
       }
       images = [...images, ...images] // Duplicate images to match pairs
 
-      this.shuffleMemory(images) // Shuffle the images
+      this.shuffledImages = this.shuffleMemory(images) // Shuffle the images
 
       // Create tiles and assign images
       for (let i = 0; i < totalTiles; i++) {
@@ -142,6 +188,7 @@ customElements.define('memory-game',
         const j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]] // Swap elements
       }
+      console.log(arr)
       return arr
     }
   })
