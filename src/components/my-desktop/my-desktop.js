@@ -13,10 +13,8 @@ customElements.define('my-desktop',
     #appOne
     #appTwo
     #appThree
-    #myWindow
-    #myWindowTwo
-    #myWindowThree
     #highestZIndex = 1
+    #windowCounter = 0 // Counter for the windows
 
     /**
      *
@@ -30,26 +28,23 @@ customElements.define('my-desktop',
       this.#appOne = this.shadowRoot.querySelector('#appLogo1')
       this.#appTwo = this.shadowRoot.querySelector('#appLogo2')
       this.#appThree = this.shadowRoot.querySelector('#appLogo3')
-      this.#myWindow = this.shadowRoot.querySelector('#my-window')
-      this.#myWindowTwo = this.shadowRoot.querySelector('#my-window-two')
-      this.#myWindowThree = this.shadowRoot.querySelector('#my-window-three')
     }
 
     /**
      *
      */
     connectedCallback () {
-      this.#appOne.addEventListener('click', event => {
+      this.#appOne.addEventListener('click', () => {
         console.log('App One Clicked')
-        this.openWindowComponent(this.#myWindow)
+        this.createNewWindow('memory-game')
       })
-      this.#appTwo.addEventListener('click', event => {
+      this.#appTwo.addEventListener('click', () => {
         console.log('App Two Clicked')
-        this.openWindowComponent(this.#myWindowTwo)
+        this.createNewWindow('my-window')
       })
-      this.#appThree.addEventListener('click', event => {
+      this.#appThree.addEventListener('click', () => {
         console.log('App Three Clicked')
-        this.openWindowComponent(this.#myWindowThree)
+        this.createNewWindow('quiz-application')
       })
 
       this.shadowRoot.addEventListener('window-clicked', event => {
@@ -58,15 +53,37 @@ customElements.define('my-desktop',
       })
 
       if (this.#myDesktop) {
-        console.log('desktop added to shadowDOM')
+        console.log('Desktop added to shadowDOM')
       } else {
         console.error('Failed to find desktop in Shadow DOM')
       }
     }
 
     /**
+     * Create a new window with the given app
      *
-     * @param window
+     * @param {string} appName - The name of the app that will be loaded into the window
+     */
+    createNewWindow (appName) {
+      // Create a new window
+      const newWindow = document.createElement('my-window')
+      newWindow.setAttribute('id', `window-${++this.#windowCounter}`)
+      newWindow.style.zIndex = ++this.#highestZIndex
+
+      // Create the apps content
+      const appInstance = document.createElement(appName)
+      newWindow.appendChild(appInstance)
+
+      // Add the app to the desktop
+      this.#myDesktop.appendChild(newWindow)
+
+      console.log(`New window created with app: ${appName}, ID: window-${this.#windowCounter}`)
+    }
+
+    /**
+     * Move the window to the top depending on the Z index
+     *
+     * @param {HTMLElement} window - The window that will be moved to the top
      */
     bringUpToFront (window) {
       this.#highestZIndex += 1
@@ -76,17 +93,6 @@ customElements.define('my-desktop',
 
     /**
      *
-     * @param window
      */
-    openWindowComponent (window) {
-      window.classList.remove('hidden')
-      this.bringUpToFront(window)
-    }
-
-    /**
-     *
-     */
-    disconnectedCallback () {
-
-    }
+    disconnectedCallback () {}
   })

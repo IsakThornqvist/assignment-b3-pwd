@@ -30,7 +30,7 @@ template.innerHTML = `
 }
 
 #windowHeader {
-  cursor: move;
+  cursor: pointer;
   background-color:rgb(63, 104, 192);
   color: white;
   display: flex;

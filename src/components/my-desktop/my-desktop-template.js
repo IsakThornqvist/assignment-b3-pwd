@@ -4,17 +4,7 @@ template.innerHTML = `
 <div id='desktopContainer'> 
     <img id='backGroundImage' src='img/RM-LOGO.png' alt='Real Madrid logo'>
     <div id='desktop'>
-        <my-window id='my-window' class='hidden'> 
-            <memory-game> </memory-game>
-            <p>Real Madrid is the best football team in the world, we are gonna win it all this season, siiiiuuuuuu</p>
-        </my-window>
-        <my-window id='my-window-two' class='hidden'>
-            <p> second window</p>
-        </my-window>
-        
-        <my-window id='my-window-three' class='hidden'>
-            <quiz-application> </quiz-application>
-        </my-window>
+
     </div>
 </div>
 
