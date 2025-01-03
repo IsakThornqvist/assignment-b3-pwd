@@ -2,23 +2,33 @@ import { template } from './my-chat-application-template.js'
 
 customElements.define('my-chat-application',
 
-
-class extends HTMLElement {
+  /**
+   *
+   */
+  class extends HTMLElement {
     #myChat
+    /**
+     *
+     */
     constructor () {
-    super ()
+      super()
 
-    this.attachShadow({ mode: 'open' })
-    this.shadowRoot.appendChild(template.content.cloneNode(true))
-    this.#myChat = this.shadowRoot.querySelector('#my-chat-application')
-}
+      this.attachShadow({ mode: 'open' })
+      this.shadowRoot.appendChild(template.content.cloneNode(true))
+      this.#myChat = this.shadowRoot.querySelector('#my-chat-application')
+    }
 
-connectedCallback () {
+    /**
+     *
+     */
+    connectedCallback () {
 
-}
+    }
 
-disconnectedCallback () {
-    
-}
+    /**
+     *
+     */
+    disconnectedCallback () {
 
-})
+    }
+  })

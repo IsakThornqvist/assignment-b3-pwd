@@ -16,6 +16,7 @@ customElements.define('my-desktop',
     #appThree
     #highestZIndex = 1
     #windowCounter = 0 // Counter for the windows
+    #abortController = new AbortController()
 
     /**
      *
@@ -35,23 +36,27 @@ customElements.define('my-desktop',
      *
      */
     connectedCallback () {
+      const signal = this.#abortController.signal
+
       this.#appOne.addEventListener('click', () => {
         console.log('App One Clicked')
         this.createNewWindow('memory-game')
-      })
+      }, { signal })
+
       this.#appTwo.addEventListener('click', () => {
         console.log('App Two Clicked')
         this.createNewWindow('my-chat-application')
-      })
+      }, { signal })
+
       this.#appThree.addEventListener('click', () => {
         console.log('App Three Clicked')
         this.createNewWindow('quiz-application')
-      })
+      }, { signal })
 
       this.shadowRoot.addEventListener('window-clicked', event => {
         console.log('Window clicked:', event.detail.window)
         this.bringUpToFront(event.detail.window)
-      })
+      }, { signal })
 
       if (this.#myDesktop) {
         console.log('Desktop added to shadowDOM')
@@ -96,5 +101,8 @@ customElements.define('my-desktop',
     /**
      *
      */
-    disconnectedCallback () {}
+    disconnectedCallback () {
+      this.#abortController.abort()
+      console.log('Event listeners cleaned up in desktop.')
+    }
   })

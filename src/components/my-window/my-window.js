@@ -39,23 +39,26 @@ customElements.define('my-window',
         console.error('Failed to find #myWindow in Shadow DOM')
       }
 
+      const signal = this.#abortController.signal
+
       this.#myWindow.addEventListener('click', () => {
         this.dispatchEvent(new CustomEvent('window-clicked', {
           bubbles: true,
           composed: true,
           detail: { window: this }
         }))
-      })
+      }, { signal })
 
       this.#closeButton.addEventListener('click', event => {
-        this.classList.add('hidden')
         console.log('window closed')
-      })
+        // this.classList.add('hidden')
+        this.remove()
+      }, { signal })
 
-      this.#windowTitle.addEventListener('mousedown', e => this.mouseDown(e))
+      this.#windowTitle.addEventListener('mousedown', e => this.mouseDown(e), { signal })
 
-      document.addEventListener('mousemove', e => this.mouseMove(e))
-      document.addEventListener('mouseup', e => this.mouseUp(e))
+      document.addEventListener('mousemove', e => this.mouseMove(e), { signal })
+      document.addEventListener('mouseup', e => this.mouseUp(e), { signal })
     }
 
     /**
@@ -109,7 +112,8 @@ customElements.define('my-window',
      *
      */
     disconnectedCallback () {
-
+      this.#abortController.abort()
+      console.log('Event listeners cleaned up in window.')
     }
   })
 

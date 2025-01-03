@@ -7,7 +7,7 @@ customElements.define('flipping-tile',
    */
   class extends HTMLElement {
     #flippingTile
-    #abortController
+    #abortController = new AbortController()
     /**
      *
      */
@@ -50,13 +50,12 @@ customElements.define('flipping-tile',
      *
      */
     connectedCallback () {
-      this.#abortController = new AbortController()
-      const abortSignal = this.#abortController.signal
+      const signal = this.#abortController.signal
       // this.handleBacksideImageVisibility()
 
       this.#flippingTile.addEventListener('click', (event) =>
         this.#flipTheTile(),
-      { abortSignal }
+      { signal }
       )
     }
 
@@ -65,6 +64,7 @@ customElements.define('flipping-tile',
      */
     disconnectedCallback () {
       this.#abortController.abort()
+      console.log('Event listeners cleaned up in flipping-tile.')
     }
 
     /*
