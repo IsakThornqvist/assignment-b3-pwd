@@ -3,7 +3,7 @@ import { template } from './my-windown-template.js'
 customElements.define('my-window',
 
   /**
-   *
+   * Custom element representing a window.
    */
   class extends HTMLElement {
     #myWindow
@@ -17,7 +17,7 @@ customElements.define('my-window',
     #isDragging = false
 
     /**
-     *
+     * Constructor for the my-window element.
      */
     constructor () {
       super()
@@ -30,7 +30,7 @@ customElements.define('my-window',
     }
 
     /**
-     *
+     * Called when the element is added to the DOM.
      */
     connectedCallback () {
       if (this.#myWindow) {
@@ -62,8 +62,9 @@ customElements.define('my-window',
     }
 
     /**
+     * Handles the mousedown event to start dragging the window.
      *
-     * @param e
+     * @param {MouseEvent} e - The mousedown event.
      */
     mouseDown (e) {
       this.dispatchEvent(new CustomEvent('window-clicked', {
@@ -77,8 +78,9 @@ customElements.define('my-window',
     }
 
     /**
+     * Handles the mousemove event to drag the window.
      *
-     * @param e
+     * @param {MouseEvent} e - The mousemove event.
      */
     mouseMove (e) {
       if (!this.#isDragging) return
@@ -98,8 +100,9 @@ customElements.define('my-window',
     }
 
     /**
+     * Handles the mouseup event to stop dragging the window.
      *
-     * @param e
+     * @param {MouseEvent} e - The mouseup event.
      */
     mouseUp (e) {
       if (this.#isDragging) {
@@ -109,7 +112,7 @@ customElements.define('my-window',
     }
 
     /**
-     *
+     * Called when the element is removed from the DOM.
      */
     disconnectedCallback () {
       this.#abortController.abort()

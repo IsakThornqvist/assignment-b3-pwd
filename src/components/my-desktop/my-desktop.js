@@ -7,7 +7,7 @@ import '../my-chat-application/index.js'
 customElements.define('my-desktop',
 
   /**
-   *
+   * Custom element representing a desktop environment.
    */
   class extends HTMLElement {
     #myDesktop
@@ -19,7 +19,7 @@ customElements.define('my-desktop',
     #abortController = new AbortController()
 
     /**
-     *
+     * Constructor for the my-desktop element.
      */
     constructor () {
       super()
@@ -33,7 +33,7 @@ customElements.define('my-desktop',
     }
 
     /**
-     *
+     * Called when the element is added to the DOM.
      */
     connectedCallback () {
       const signal = this.#abortController.signal
@@ -99,7 +99,7 @@ customElements.define('my-desktop',
     }
 
     /**
-     *
+     * Called when the element is removed from the DOM.
      */
     disconnectedCallback () {
       this.#abortController.abort()

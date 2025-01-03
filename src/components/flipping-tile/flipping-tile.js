@@ -3,13 +3,13 @@ import { template } from './flipping-tile-template.js'
 customElements.define('flipping-tile',
 
   /**
-   *
+   * Custom element representing a flipping tile.
    */
   class extends HTMLElement {
     #flippingTile
     #abortController = new AbortController()
     /**
-     *
+     * Constructor for the flipping-tile element.
      */
     constructor () {
       super()
@@ -20,17 +20,20 @@ customElements.define('flipping-tile',
     }
 
     /**
+     * Specifies the observed attributes for the element.
      *
+     * @returns {string[]} The list of observed attributes.
      */
     static get observedAttributes () {
       return ['hidden', 'face-up', 'disabled']
     }
 
     /**
+     * Callback invoked when an observed attribute changes.
      *
-     * @param name
-     * @param oldValue
-     * @param newValue
+     * @param {string} name - The name of the attribute.
+     * @param {string} oldValue - The old value of the attribute.
+     * @param {string} newValue - The new value of the attribute.
      */
     attributeChangedCallback (name, oldValue, newValue) {
       if ((name === 'hidden' || name === 'disabled') &&
@@ -47,7 +50,7 @@ customElements.define('flipping-tile',
     }
 
     /**
-     *
+     * Called when the element is added to the DOM.
      */
     connectedCallback () {
       const signal = this.#abortController.signal
@@ -60,7 +63,7 @@ customElements.define('flipping-tile',
     }
 
     /**
-     *
+     * Called when the element is removed from the DOM.
      */
     disconnectedCallback () {
       this.#abortController.abort()
@@ -80,7 +83,9 @@ customElements.define('flipping-tile',
     }
  */
     /**
+     * Flips the tile and dispatches a custom event.
      *
+     * @private
      */
     #flipTheTile () {
       const tileFlipped = this.#flippingTile.style.transform === 'rotateY(180deg)'

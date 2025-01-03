@@ -3,7 +3,7 @@ import '../flipping-tile/index.js'
 
 customElements.define('memory-game',
   /**
-   *
+   * Custom element representing a memory game.
    */
   class extends HTMLElement {
     #memoryGame
@@ -24,9 +24,10 @@ customElements.define('memory-game',
 
     #selectedTiles
     #shuffledImages
+    #abortController = new AbortController()
 
     /**
-     *
+     * Constructor for the memory-game element.
      */
     constructor () {
       super()
@@ -42,31 +43,34 @@ customElements.define('memory-game',
     }
 
     /**
-     *
+     * Called when the element is added to the DOM.
      */
     connectedCallback () {
       if (this.#memoryGame) {
         console.log('memory added to shadowDOM')
       }
+
+      const signal = this.#abortController.signal
+
       this.#button4x4.addEventListener('click', (event) => {
         console.log('activated 4x4')
         this.createTiles(4, 4)
-      })
+      }, { signal })
 
       this.#button4x2.addEventListener('click', event => {
         console.log('activated 4x2')
         this.createTiles(4, 2)
-      })
+      }, { signal })
 
       this.#button2x2.addEventListener('click', event => {
         console.log('activated 2x2')
         this.createTiles(2, 2)
-      })
+      }, { signal })
 
       this.#resetButton.addEventListener('click', event => {
         console.log('game reset')
         this.createTiles(rows, columns)
-      })
+      }, { signal })
 
       this.shadowRoot.addEventListener('tile-flipped', event => {
         const tile = event.detail.tile // Hämtar den klickade brickan
@@ -76,7 +80,7 @@ customElements.define('memory-game',
         const imageIndex = tileNumber - 1
         const imageForTile = this.shuffledImages[imageIndex]
         console.log(`Image for tile ${tileNumber}:`, imageForTile)
-      })
+      }, { signal })
 
       console.log('testtest')
 
@@ -89,17 +93,17 @@ customElements.define('memory-game',
     }
 
     /**
-     *
+     * Called when the element is removed from the DOM.
      */
-    disconnectedCallback () {}
+    disconnectedCallback () {
+      this.#abortController.abort()
+      console.log('Event listeners cleaned up in memory.')
+    }
 
     /**
+     * Handles the tile flip event.
      *
-     */
-
-    /**
-     *
-     * @param event
+     * @param {Event} event - The tile flip event.
      */
     handleTileFlipp (event) {
       const tile = event.detail.tile
@@ -107,29 +111,20 @@ customElements.define('memory-game',
       this.#selectedTiles.push(tile)
     }
 
-    /**
-     *
-     */
-    checkForMatchingTile () {
+    /*     checkForMatchingTile () {
 
     }
 
-    /**
-     *
-     */
     checkGameOver () {
 
     }
 
-    /**
-     *
-     */
     resetGame () {
 
-    }
+    } */
 
     /**
-     *
+     * Clears all tiles from the game board.
      */
     clearTiles () {
       while (this.#memoryGame.firstChild) {
@@ -180,8 +175,10 @@ customElements.define('memory-game',
     }
 
     /**
+     * Shuffles an array of memory tiles.
      *
-     * @param arr
+     * @param {Array} arr - The array to shuffle.
+     * @returns {Array} The shuffled array.
      */
     shuffleMemory (arr) {
       for (let i = arr.length - 1; i > 0; i--) {
