@@ -2,6 +2,7 @@ import { template } from './my-desktop-template.js'
 import '../my-window/index.js'
 import '../memory-game/index.js'
 import '../quiz-application/index.js'
+import '../my-chat-application/index.js'
 
 customElements.define('my-desktop',
 
@@ -40,7 +41,7 @@ customElements.define('my-desktop',
       })
       this.#appTwo.addEventListener('click', () => {
         console.log('App Two Clicked')
-        this.createNewWindow('my-window')
+        this.createNewWindow('my-chat-application')
       })
       this.#appThree.addEventListener('click', () => {
         console.log('App Three Clicked')
@@ -72,6 +73,7 @@ customElements.define('my-desktop',
 
       // Create the apps content
       const appInstance = document.createElement(appName)
+      console.log('App instance created:', appInstance)
       newWindow.appendChild(appInstance)
 
       // Add the app to the desktop

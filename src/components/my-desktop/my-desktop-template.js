@@ -22,11 +22,6 @@ template.innerHTML = `
 
 <style>
 
-#my-window,
-#my-window-two,
-#my-window-three {
-  position: absolute; 
-}
     .hidden {
         display: none;
     }
