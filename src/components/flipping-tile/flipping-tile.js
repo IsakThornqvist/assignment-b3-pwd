@@ -24,9 +24,9 @@ customElements.define('flipping-tile',
      *
      * @returns {string[]} The list of observed attributes.
      */
-    static get observedAttributes () {
+    /*     static get observedAttributes () {
       return ['hidden', 'face-up', 'disabled']
-    }
+    } */
 
     /**
      * Callback invoked when an observed attribute changes.
@@ -35,7 +35,7 @@ customElements.define('flipping-tile',
      * @param {string} oldValue - The old value of the attribute.
      * @param {string} newValue - The new value of the attribute.
      */
-    attributeChangedCallback (name, oldValue, newValue) {
+    /*     attributeChangedCallback (name, oldValue, newValue) {
       if ((name === 'hidden' || name === 'disabled') &&
         oldValue !== newValue) {
         const isPresent = Boolean(newValue) || newValue === ''
@@ -47,14 +47,13 @@ customElements.define('flipping-tile',
           this.#flippingTile.removeAttribute('disabled')
         }
       }
-    }
+    } */
 
     /**
      * Called when the element is added to the DOM.
      */
     connectedCallback () {
       const signal = this.#abortController.signal
-      // this.handleBacksideImageVisibility()
 
       this.#flippingTile.addEventListener('click', (event) =>
         this.#flipTheTile(),
@@ -70,18 +69,20 @@ customElements.define('flipping-tile',
       console.log('Event listeners cleaned up in flipping-tile.')
     }
 
-    /*
-    handleBacksideImageVisibility () {
-
+    /**
+     *
+     */
+    hideTile () {
+      this.#flippingTile.classList.add('hidden')
     }
 
-    handleHiddenTile () {
+    /**
+     *
+     */
+    resetTile () {
+      this.#flippingTile.style.transform = 'rotateY(0deg)'
     }
 
-    handleFucusedTile () {
-
-    }
- */
     /**
      * Flips the tile and dispatches a custom event.
      *

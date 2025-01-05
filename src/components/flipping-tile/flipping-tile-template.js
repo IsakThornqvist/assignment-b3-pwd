@@ -23,6 +23,10 @@ template.innerHTML = `
   transform: rotateY(180deg); /* Rotates the card */
 }
 
+.hidden {
+  display: none;
+}
+
 /* Front and back sides fill the entire button */
 #front,
 #back {
