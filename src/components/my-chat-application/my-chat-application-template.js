@@ -4,10 +4,10 @@ template.innerHTML = `
 <div id='my-chat-application'>
     <my-username> </my-username>
       <form id="textArea">
-        <textarea id="textInput" rows='10' cols='35' placeholder="my-chat-app"></textarea>
+        <textarea id="textInput" rows='10' cols='35' placeholder="my-chat-app" class='hidden'></textarea>
       </form>
     </div>  
-      <button type="submit" id="sendButton">Send</button>
+      <button type="submit" id="sendButton" class='hidden'>Send</button>
 </div>
 
 
@@ -34,6 +34,10 @@ template.innerHTML = `
 
   #textInput {
     border: 2px solid rgb(241, 190, 48);
+  }
+
+  .hidden {
+    display: none;
   }
 
 

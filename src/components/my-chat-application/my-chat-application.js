@@ -9,6 +9,7 @@ customElements.define('my-chat-application',
   class extends HTMLElement {
     #myChat
     #sendButton
+    #textInput
     /**
      * Constructor for the my-chat-application element.
      */
@@ -19,6 +20,7 @@ customElements.define('my-chat-application',
       this.shadowRoot.appendChild(template.content.cloneNode(true))
       this.#myChat = this.shadowRoot.querySelector('#my-chat-application')
       this.#sendButton = this.shadowRoot.querySelector('#sendButton')
+      this.#textInput = this.shadowRoot.querySelector('#textInput')
     }
 
     /**
@@ -28,6 +30,12 @@ customElements.define('my-chat-application',
       this.#sendButton.addEventListener('click', event => {
         console.log('message sent')
         this.getMessage()
+      })
+
+      this.shadowRoot.addEventListener('username-submitted', event => {
+        console.log('Username chat app', event.detail.nickname)
+        this.#sendButton.classList.remove('hidden')
+        this.#textInput.classList.remove('hidden')
       })
     }
 

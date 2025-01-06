@@ -8,6 +8,7 @@ customElements.define('my-username',
   class extends HTMLElement {
     #myUsername
     #sendButton
+    #userNameInput
     /**
      *
      */
@@ -18,6 +19,7 @@ customElements.define('my-username',
       this.shadowRoot.appendChild(template.content.cloneNode(true))
       this.#myUsername = this.shadowRoot.querySelector('#my-username')
       this.#sendButton = this.shadowRoot.querySelector('#sendButton')
+      this.#userNameInput = this.shadowRoot.querySelector('#userNameInput')
     }
 
     /**
@@ -27,6 +29,17 @@ customElements.define('my-username',
       this.#sendButton.addEventListener('click', event => {
         event.preventDefault()
         this.getNickName()
+        this.#myUsername.classList.add('hidden')
+        this.#sendButton.classList.add('hidden')
+      })
+
+      this.#userNameInput.addEventListener('keydown', event => {
+        if (event.key === 'Enter') {
+          event.preventDefault()
+          this.getNickName()
+          this.#myUsername.classList.add('hidden')
+          this.#sendButton.classList.add('hidden')
+        }
       })
     }
 
@@ -42,12 +55,16 @@ customElements.define('my-username',
      * @param nickName
      */
     getNickName (nickName) {
-      const textInput = this.shadowRoot.querySelector('#textInput')
-      const nickname = textInput.value.trim()
+      const nickname = this.#userNameInput.value.trim()
       nickName = nickname
 
       if (nickname) {
         console.log('Nickname submitted:', nickname)
+        this.dispatchEvent(new CustomEvent('username-submitted', {
+          bubbles: true,
+          composed: true,
+          detail: { nickname }
+        }))
       } else {
         console.log('Nickname is empty')
       }

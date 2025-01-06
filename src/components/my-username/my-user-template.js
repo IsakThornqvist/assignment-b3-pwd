@@ -2,9 +2,9 @@ export const template = document.createElement('template')
 
 template.innerHTML = `
 
-<div id='my-nickname'>
+<div id='my-username'>
       <form id="textArea">
-        <textarea id="textInput" rows='10' cols='35' placeholder="Enter your Username"></textarea>
+        <textarea id="userNameInput" rows='10' cols='35' placeholder="Enter your Username"></textarea>
       </form>
     </div>  
       <button type="submit" id="sendButton">Submit Username</button>
@@ -32,10 +32,13 @@ template.innerHTML = `
     background-color: rgb(255, 187, 0);
   }
 
-  #textInput {
+  #userNameInput {
     border: 2px solid rgb(241, 190, 48);
   }
 
+  .hidden {
+    display: none;
+  }
 
 </style>
 
