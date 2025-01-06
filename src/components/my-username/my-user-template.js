@@ -1,13 +1,13 @@
 export const template = document.createElement('template')
 
 template.innerHTML = `
-<div id='my-chat-application'>
-    <my-username> </my-username>
+
+<div id='my-nickname'>
       <form id="textArea">
-        <textarea id="textInput" rows='10' cols='35' placeholder="my-chat-app"></textarea>
+        <textarea id="textInput" rows='10' cols='35' placeholder="Enter your Username"></textarea>
       </form>
     </div>  
-      <button type="submit" id="sendButton">Send</button>
+      <button type="submit" id="sendButton">Submit Username</button>
 </div>
 
 
@@ -38,4 +38,7 @@ template.innerHTML = `
 
 
 </style>
+
+
+
 `
