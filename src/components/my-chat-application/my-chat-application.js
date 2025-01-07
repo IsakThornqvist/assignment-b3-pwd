@@ -12,6 +12,7 @@ customElements.define('my-chat-application',
     #sendButton
     #textInput
     #userName
+    #messageArea
     /**
      * Constructor for the my-chat-application element.
      */
@@ -23,6 +24,7 @@ customElements.define('my-chat-application',
       this.#myChat = this.shadowRoot.querySelector('#my-chat-application')
       this.#sendButton = this.shadowRoot.querySelector('#sendButton')
       this.#textInput = this.shadowRoot.querySelector('#textInput')
+      this.#messageArea = this.shadowRoot.querySelector('#messageArea')
     }
 
     /**
@@ -61,6 +63,37 @@ customElements.define('my-chat-application',
         this.#sendButton.classList.remove('hidden')
         this.#textInput.classList.remove('hidden')
       })
+      // testsyfte
+      const clearLocalStorageButton = this.shadowRoot.querySelector('#clearLocalStorageButton')
+      clearLocalStorageButton.addEventListener('click', () => {
+        localStorage.clear() // Rensa all localStorage
+        console.log('Local Storage cleared')
+        this.#userName = null
+        this.shadowRoot.querySelector('my-username').classList.remove('hidden')
+        this.#sendButton.classList.add('hidden')
+        this.#textInput.classList.add('hidden')
+      })
+    }
+
+    /**
+     *
+     * @param message
+     */
+    #displayMessages (message) {
+      const myMessengeElement = document.createElement('div')
+
+      const myUserNameElement = document.createElement('span')
+      myUserNameElement.textContent = `${this.#userName}:`
+      myUserNameElement.classList.add('username')
+
+      const messageElement = document.createElement('span')
+      messageElement.textContent = `${message}`
+      messageElement.classList.add('bold')
+
+      myMessengeElement.appendChild(myUserNameElement)
+      myMessengeElement.appendChild(messageElement)
+
+      this.#messageArea.appendChild(myMessengeElement)
     }
 
     /**
@@ -73,12 +106,13 @@ customElements.define('my-chat-application',
 
       if (theMessage) {
         console.log('Message sent:', theMessage)
-
+        this.#displayMessages(theMessage)
         this.dispatchEvent(new CustomEvent('message-sent', {
           bubbles: true,
           composed: true,
           detail: { message }
         }))
+        this.#textInput.value = ''
       } else {
         console.log('Message is empty')
       }

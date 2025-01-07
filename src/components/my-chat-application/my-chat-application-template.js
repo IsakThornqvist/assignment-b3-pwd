@@ -3,11 +3,13 @@ export const template = document.createElement('template')
 template.innerHTML = `
 <div id='my-chat-application'>
     <my-username> </my-username>
-      <form id="textArea">
-        <textarea id="textInput" rows='10' cols='35' placeholder="my-chat-app" class='hidden'></textarea>
+    <form id="textArea">
+        <div id='messageArea'> </div>
+        <textarea id="textInput" rows='2' cols='35' placeholder="Send a message" class='hidden'></textarea>
       </form>
     </div>  
       <button type="submit" id="sendButton" class='hidden'>Send</button>
+      <button type="button" id="clearLocalStorageButton">Clear Local Storage</button>
 </div>
 
 
@@ -18,7 +20,7 @@ template.innerHTML = `
     color: rgb(63, 104, 192);
     border: none;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 12px;
     cursor: pointer;
     border-radius: 5px;
     font-weight: bold;
@@ -34,11 +36,27 @@ template.innerHTML = `
 
   #textInput {
     border: 2px solid rgb(241, 190, 48);
+    margin-top: 10px;
   }
 
   .hidden {
     display: none;
+    
   }
+  #messageArea {
+  }
+
+  .username {
+    color: rgb(241, 190, 48);
+    font-weight: bold;
+    margin-right: 5px; 
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+
 
 
 </style>

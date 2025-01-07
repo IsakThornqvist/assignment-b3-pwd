@@ -81,6 +81,14 @@ customElements.define('my-desktop',
       console.log('App instance created:', appInstance)
       newWindow.appendChild(appInstance)
 
+      // Set the window title based on the app
+      if (appName === 'memory-game') {
+        newWindow.setWindowTitle('Memory Game')
+      } else if (appName === 'my-chat-application') {
+        newWindow.setWindowTitle('Chat Application')
+      } else if (appName === 'quiz-application') {
+        newWindow.setWindowTitle('Real Madrid Quiz')
+      }
       // Add the app to the desktop
       this.#myDesktop.appendChild(newWindow)
 

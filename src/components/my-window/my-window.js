@@ -78,6 +78,14 @@ customElements.define('my-window',
     }
 
     /**
+     *
+     * @param newTitle
+     */
+    setWindowTitle (newTitle) {
+      this.#windowTitle.textContent = newTitle
+    }
+
+    /**
      * Handles the mousemove event to drag the window.
      *
      * @param {MouseEvent} e - The mousemove event.
