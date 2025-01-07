@@ -1,4 +1,5 @@
 import { template } from './my-user-template.js'
+import { LocalStorage } from '../local-storage/local-storage.js'
 
 customElements.define('my-username',
 
@@ -26,21 +27,27 @@ customElements.define('my-username',
      * Called when the element is added to the DOM.
      */
     connectedCallback () {
-      this.#sendButton.addEventListener('click', event => {
-        event.preventDefault()
-        this.getNickName()
-        this.#myUsername.classList.add('hidden')
-        this.#sendButton.classList.add('hidden')
-      })
-
-      this.#userNameInput.addEventListener('keydown', event => {
-        if (event.key === 'Enter') {
+      const savedUsername = LocalStorage.getSavedUsername()
+      if (savedUsername) {
+        this.classList.add('hidden')
+        console.log('welcome back 2', savedUsername)
+      } else {
+        this.#sendButton.addEventListener('click', event => {
           event.preventDefault()
           this.getNickName()
           this.#myUsername.classList.add('hidden')
           this.#sendButton.classList.add('hidden')
-        }
-      })
+        })
+
+        this.#userNameInput.addEventListener('keydown', event => {
+          if (event.key === 'Enter') {
+            event.preventDefault()
+            this.getNickName()
+            this.#myUsername.classList.add('hidden')
+            this.#sendButton.classList.add('hidden')
+          }
+        })
+      }
     }
 
     /**
@@ -71,3 +78,7 @@ customElements.define('my-username',
       return nickName
     }
   })
+
+// spara namn i lokal storage NÄR MAN ÖPPNAR APPEN KOLLAR DEN LOKAL STORAGE
+// DIREKT TILKLK CHATTEB
+// KOLAL ISSUE TIDARE MNEDDEALNDE 20 ST
