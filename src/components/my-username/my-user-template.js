@@ -18,7 +18,7 @@ template.innerHTML = `
     color: rgb(63, 104, 192);
     border: none;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     border-radius: 5px;
     font-weight: bold;

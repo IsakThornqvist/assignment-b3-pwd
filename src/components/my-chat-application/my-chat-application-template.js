@@ -28,6 +28,8 @@ template.innerHTML = `
     border: 2px solid rgb(63, 104, 192);
 }
 
+
+
 #sendButton:hover {
     transition: 1s;
     color: rgb(63, 104, 192);
@@ -56,6 +58,9 @@ template.innerHTML = `
     font-weight: bold;
   }
 
+.messageStyle {
+    padding-bottom: 10px;
+}
 
 
 
