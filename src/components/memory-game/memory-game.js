@@ -25,8 +25,8 @@ customElements.define('memory-game',
     #selectedTiles = []
     #shuffledImages
     #abortController = new AbortController()
-    #nextFlipReady = true // Allows to flip the next tiles
-    #timeoutDuration = 500 // Timeout duration in milliseconds (1 second)
+    #nextFlipReady = true
+    #timeoutDuration = 500
 
     /**
      * Constructor for the memory-game element.
@@ -43,80 +43,63 @@ customElements.define('memory-game',
     }
 
     /**
-     * Called when the element is added to the DOM.
+     *
      */
     connectedCallback () {
       const signal = this.#abortController.signal
 
-      this.#button4x4.addEventListener('click', () => {
-        console.log('activated 4x4')
-        this.createTiles(4, 4)
-      }, { signal })
+      this.#button4x4.addEventListener('click', () => this.createTiles(4, 4), { signal })
+      this.#button4x2.addEventListener('click', () => this.createTiles(4, 2), { signal })
+      this.#button2x2.addEventListener('click', () => this.createTiles(2, 2), { signal })
+      this.#resetButton.addEventListener('click', () => this.createTiles(4, 4), { signal })
 
-      this.#button4x2.addEventListener('click', () => {
-        console.log('activated 4x2')
-        this.createTiles(4, 2)
-      }, { signal })
-
-      this.#button2x2.addEventListener('click', () => {
-        console.log('activated 2x2')
-        this.createTiles(2, 2)
-      }, { signal })
-
-      this.#resetButton.addEventListener('click', () => {
-        console.log('game reset')
-        this.clearTiles()
-        this.createTiles(4, 4) // Reset to default 4x4
-      }, { signal })
-
-      this.shadowRoot.addEventListener('tile-flipped', event => {
-        if (!this.#nextFlipReady) return // Stop interaction if not ready for the next flip
+      this.shadowRoot.addEventListener('tile-clicked', event => {
+        if (!this.#nextFlipReady) return
 
         const tile = event.detail.tile
+        if (this.#selectedTiles.includes(tile)) return
+
         this.#selectedTiles.push(tile)
+        tile.flipTile()
 
         if (this.#selectedTiles.length === 2) {
           const [firstTile, secondTile] = this.#selectedTiles
           const firstImage = firstTile.shadowRoot.querySelector('#back').style.backgroundImage
           const secondImage = secondTile.shadowRoot.querySelector('#back').style.backgroundImage
 
-          this.#nextFlipReady = false // Lock interaction while processing the two tiles
+          this.#nextFlipReady = false
 
           if (firstImage === secondImage) {
-            // If the images match, hide both tiles
             setTimeout(() => {
               firstTile.hideTile()
               secondTile.hideTile()
-              this.#selectedTiles = [] // Reset the selected tiles
-              this.#nextFlipReady = true // Unlock interaction for the next flip
-            }, this.#timeoutDuration) // Time it takes for the tiles to flip back
+              this.#selectedTiles = []
+              this.#nextFlipReady = true
+            }, this.#timeoutDuration)
           } else {
-            // If the images don't match, reset both tiles
             setTimeout(() => {
               firstTile.resetTile()
               secondTile.resetTile()
-              this.#selectedTiles = [] // Reset the selected tiles
-              this.#nextFlipReady = true // Unlock interaction for the next flip
-            }, this.#timeoutDuration) // Time before flipping interaction is over
+              this.#selectedTiles = []
+              this.#nextFlipReady = true
+            }, this.#timeoutDuration)
           }
         }
       }, { signal })
 
-      const rows = parseInt(this.getAttribute('rows')) || 4
-      const columns = parseInt(this.getAttribute('columns')) || 4
-      this.createTiles(rows, columns)
+      this.createTiles(4, 4)
     }
 
     /**
-     * Called when the element is removed from the DOM.
+     *
      */
     disconnectedCallback () {
       this.#abortController.abort()
-      console.log('Event listeners cleaned up in memory.')
+      console.log('Event listeners cleaned up in memory-game.')
     }
 
     /**
-     * Clears all tiles from the game board.
+     *
      */
     clearTiles () {
       while (this.#memoryGame.firstChild) {
@@ -125,10 +108,9 @@ customElements.define('memory-game',
     }
 
     /**
-     * Creates flipping-tiles based on rows and columns.
      *
-     * @param {number} rows - Number of rows.
-     * @param {number} columns - Number of columns.
+     * @param rows
+     * @param columns
      */
     createTiles (rows, columns) {
       this.clearTiles()
@@ -148,8 +130,6 @@ customElements.define('memory-game',
 
       for (let i = 0; i < totalTiles; i++) {
         const newTile = document.createElement('flipping-tile')
-        newTile.setAttribute('data-tile-number', i + 1)
-
         const backSide = newTile.shadowRoot.querySelector('#back')
         backSide.style.backgroundImage = `url('${this.#shuffledImages[i]}')`
         backSide.style.backgroundSize = 'cover'

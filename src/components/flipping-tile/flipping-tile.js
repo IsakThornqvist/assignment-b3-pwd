@@ -1,13 +1,13 @@
 import { template } from './flipping-tile-template.js'
 
 customElements.define('flipping-tile',
-
   /**
    * Custom element representing a flipping tile.
    */
   class extends HTMLElement {
     #flippingTile
     #abortController = new AbortController()
+
     /**
      * Constructor for the flipping-tile element.
      */
@@ -25,10 +25,13 @@ customElements.define('flipping-tile',
     connectedCallback () {
       const signal = this.#abortController.signal
 
-      this.#flippingTile.addEventListener('click', (event) =>
-        this.#flipTheTile(),
-      { signal }
-      )
+      this.#flippingTile.addEventListener('click', () =>
+        this.dispatchEvent(new CustomEvent('tile-clicked', {
+          bubbles: true,
+          composed: true,
+          detail: { tile: this }
+        })),
+      { signal })
     }
 
     /**
@@ -40,32 +43,24 @@ customElements.define('flipping-tile',
     }
 
     /**
-     *
+     * Public method to hide the tile.
      */
     hideTile () {
       this.#flippingTile.classList.add('hidden')
     }
 
     /**
-     *
+     * Public method to reset the tile's rotation.
      */
     resetTile () {
       this.#flippingTile.style.transform = 'rotateY(0deg)'
     }
 
     /**
-     * Flips the tile and dispatches a custom event.
-     *
-     * @private
+     * Public method to flip the tile.
      */
-    #flipTheTile () {
+    flipTile () {
       const tileFlipped = this.#flippingTile.style.transform === 'rotateY(180deg)'
       this.#flippingTile.style.transform = tileFlipped ? 'rotateY(0deg)' : 'rotateY(180deg)'
-      console.log('tile flipped')
-      this.dispatchEvent(new CustomEvent('tile-flipped', {
-        bubbles: true,
-        composed: true,
-        detail: { tile: this }
-      }))
     }
   })
