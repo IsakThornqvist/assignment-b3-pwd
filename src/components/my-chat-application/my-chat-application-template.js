@@ -15,6 +15,17 @@ template.innerHTML = `
 
 
 <style> 
+.delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
 
 #sendButton {
     background-color: rgb(241, 190, 48);
@@ -47,6 +58,11 @@ template.innerHTML = `
     
   }
   #messageArea {
+    max-height: 400px; 
+  overflow-y: auto;
+  padding: 10px; 
+  border: 1px solid #ccc; 
+  background-color: #f9f9f9;
   }
 
   .username {

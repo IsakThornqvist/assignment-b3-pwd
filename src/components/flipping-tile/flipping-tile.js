@@ -20,36 +20,6 @@ customElements.define('flipping-tile',
     }
 
     /**
-     * Specifies the observed attributes for the element.
-     *
-     * @returns {string[]} The list of observed attributes.
-     */
-    /*     static get observedAttributes () {
-      return ['hidden', 'face-up', 'disabled']
-    } */
-
-    /**
-     * Callback invoked when an observed attribute changes.
-     *
-     * @param {string} name - The name of the attribute.
-     * @param {string} oldValue - The old value of the attribute.
-     * @param {string} newValue - The new value of the attribute.
-     */
-    /*     attributeChangedCallback (name, oldValue, newValue) {
-      if ((name === 'hidden' || name === 'disabled') &&
-        oldValue !== newValue) {
-        const isPresent = Boolean(newValue) || newValue === ''
-
-        if (isPresent) {
-          this.#flippingTile.setAttribute('disabled', '')
-          this.blur()
-        } else {
-          this.#flippingTile.removeAttribute('disabled')
-        }
-      }
-    } */
-
-    /**
      * Called when the element is added to the DOM.
      */
     connectedCallback () {

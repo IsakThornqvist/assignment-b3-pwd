@@ -25,7 +25,7 @@ customElements.define('memory-game',
     #selectedTiles = []
     #shuffledImages
     #abortController = new AbortController()
-    #nextFlipReady = true // Added for timeout control
+    #nextFlipReady = true // Allows to flip the next tiles
     #timeoutDuration = 500 // Timeout duration in milliseconds (1 second)
 
     /**
@@ -89,7 +89,7 @@ customElements.define('memory-game',
               secondTile.hideTile()
               this.#selectedTiles = [] // Reset the selected tiles
               this.#nextFlipReady = true // Unlock interaction for the next flip
-            }, this.#timeoutDuration) // Wait before allowing the user to flip new tiles
+            }, this.#timeoutDuration) // Time it takes for the tiles to flip back
           } else {
             // If the images don't match, reset both tiles
             setTimeout(() => {
@@ -97,7 +97,7 @@ customElements.define('memory-game',
               secondTile.resetTile()
               this.#selectedTiles = [] // Reset the selected tiles
               this.#nextFlipReady = true // Unlock interaction for the next flip
-            }, this.#timeoutDuration) // Wait before allowing the user to flip new tiles
+            }, this.#timeoutDuration) // Time before flipping interaction is over
           }
         }
       }, { signal })
@@ -174,3 +174,7 @@ customElements.define('memory-game',
       return arr
     }
   })
+
+// variabel tiles flippade
+// tilesen sköter flippingen
+// memory som säger år den att flippa

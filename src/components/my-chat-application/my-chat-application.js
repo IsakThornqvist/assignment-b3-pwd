@@ -17,6 +17,7 @@ customElements.define('my-chat-application',
     #processedMessages = new Set()
     #onMessageHandler
     #userNameShower
+
     /**
      * Constructor for the my-chat-application element.
      */
@@ -99,13 +100,13 @@ customElements.define('my-chat-application',
         }
       }
 
-      this.#socket.addEventListener('open', event => {
+      this.#socket.addEventListener('open', () => {
         console.log('WebSocket connection established')
       })
 
       this.#socket.addEventListener('message', this.#onMessageHandler)
 
-      this.#socket.addEventListener('close', event => {
+      this.#socket.addEventListener('close', () => {
         console.warn('WebSocket connection closed, attempting to reconnect')
         setTimeout(() => this.connectWebSocket(), 5000)
       })
@@ -118,7 +119,7 @@ customElements.define('my-chat-application',
     /**
      * Displays a message in the chat area.
      *
-     * @param {Object} message - The message to display.
+     * @param {object} message - The message to display.
      */
     #displayMessages (message) {
       const messageKey = `${message.username}-${message.data}`
@@ -126,7 +127,10 @@ customElements.define('my-chat-application',
         return
       }
       this.#processedMessages.add(messageKey)
+
       const myMessengeElement = document.createElement('div')
+      myMessengeElement.classList.add('messageStyle')
+      myMessengeElement.setAttribute('data-message-key', messageKey)
 
       const myUserNameElement = document.createElement('span')
       myUserNameElement.textContent = `${message.username || 'Unknown'}:`
@@ -136,13 +140,45 @@ customElements.define('my-chat-application',
       messageElement.textContent = `${message.data || message}`
       messageElement.classList.add('bold')
 
+      const deleteButton = document.createElement('button')
+      deleteButton.textContent = 'Delete'
+      deleteButton.classList.add('delete-button', 'hidden')
+      deleteButton.addEventListener('click', () => this.deleteMessage(messageKey, myMessengeElement))
+
+      myMessengeElement.addEventListener('click', () => {
+        deleteButton.classList.toggle('hidden')
+      })
+
       myMessengeElement.appendChild(myUserNameElement)
       myMessengeElement.appendChild(messageElement)
-      myMessengeElement.classList.add('messageStyle')
+      myMessengeElement.appendChild(deleteButton)
 
       this.#messageArea.appendChild(myMessengeElement)
+      this.#messageArea.scrollTop = this.#messageArea.scrollHeight
       this.#userNameShower.classList.add('username2')
       this.#userNameShower.textContent = `Chatting as: ${this.#userName}`
+    }
+
+    /**
+     * Deletes a message from the chat and local storage.
+     *
+     * @param {string} messageKey - The unique key of the message to delete.
+     * @param {HTMLElement} messageElement - The HTML element representing the message.
+     */
+    deleteMessage (messageKey, messageElement) {
+      // Remove from local storage
+      const messages = JSON.parse(localStorage.getItem('messages')) || []
+      const updatedMessages = messages.filter(message => {
+        const currentMessageKey = `${message.username}-${message.data}`
+        return currentMessageKey !== messageKey
+      })
+      localStorage.setItem('messages', JSON.stringify(updatedMessages))
+
+      // Remove from DOM
+      messageElement.remove()
+      this.#processedMessages.delete(messageKey)
+
+      console.log(`Message with key "${messageKey}" deleted`)
     }
 
     /**
@@ -173,7 +209,7 @@ customElements.define('my-chat-application',
     /**
      * Saves a message to local storage.
      *
-     * @param {Object} message - The message to save.
+     * @param {object} message - The message to save.
      */
     saveMessageToLocalStorage (message) {
       const messages = JSON.parse(localStorage.getItem('messages')) || []
