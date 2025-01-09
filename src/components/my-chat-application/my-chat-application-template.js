@@ -7,9 +7,10 @@ template.innerHTML = `
         <div id='messageArea'> </div>
         <textarea id="textInput" rows='2' cols='35' placeholder="Send a message" class='hidden'></textarea>
       </form>
-    </div>  
+    </div>
+    <p id='chattingName' class='hidden'></p>  
       <button type="submit" id="sendButton" class='hidden'>Send</button>
-      <button type="button" id="clearLocalStorageButton">Clear Local Storage</button>
+      <button type="button" id="clearLocalStorageButton" >Clear Local Storage</button>
 </div>
 
 
@@ -52,6 +53,12 @@ template.innerHTML = `
     color: rgb(241, 190, 48);
     font-weight: bold;
     margin-right: 5px; 
+  }
+
+  .username2 {
+    color: rgb(63, 104, 192);
+    font-weight: bold;
+    margin-right: 5px;
   }
 
   .bold {

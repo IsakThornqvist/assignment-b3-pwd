@@ -16,6 +16,7 @@ customElements.define('my-chat-application',
     #socket
     #processedMessages = new Set()
     #onMessageHandler
+    #userNameShower
     /**
      * Constructor for the my-chat-application element.
      */
@@ -28,6 +29,7 @@ customElements.define('my-chat-application',
       this.#sendButton = this.shadowRoot.querySelector('#sendButton')
       this.#textInput = this.shadowRoot.querySelector('#textInput')
       this.#messageArea = this.shadowRoot.querySelector('#messageArea')
+      this.#userNameShower = this.shadowRoot.querySelector('#chattingName')
     }
 
     /**
@@ -39,6 +41,7 @@ customElements.define('my-chat-application',
         this.#userName = savedUsername
         this.#sendButton.classList.remove('hidden')
         this.#textInput.classList.remove('hidden')
+        this.#userNameShower.classList.remove('hidden')
         console.log('welcome back', savedUsername)
       } else {
         this.shadowRoot.querySelector('my-username').classList.remove('hidden')
@@ -57,6 +60,7 @@ customElements.define('my-chat-application',
         localStorage.setItem('username', this.#userName)
         this.#sendButton.classList.remove('hidden')
         this.#textInput.classList.remove('hidden')
+        this.#userNameShower.classList.remove('hidden')
       })
 
       const clearLocalStorageButton = this.shadowRoot.querySelector('#clearLocalStorageButton')
@@ -74,7 +78,7 @@ customElements.define('my-chat-application',
     }
 
     /**
-     *
+     * Connects to the WebSocket server.
      */
     connectWebSocket () {
       if (this.#socket) {
@@ -82,10 +86,10 @@ customElements.define('my-chat-application',
       }
 
       this.#socket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket')
-
       /**
+       * Handles incoming WebSocket messages.
        *
-       * @param event
+       * @param {MessageEvent} event - The message event from the WebSocket.
        */
       this.#onMessageHandler = event => {
         const receivedData = JSON.parse(event.data)
@@ -112,8 +116,9 @@ customElements.define('my-chat-application',
     }
 
     /**
+     * Displays a message in the chat area.
      *
-     * @param message
+     * @param {Object} message - The message to display.
      */
     #displayMessages (message) {
       const messageKey = `${message.username}-${message.data}`
@@ -136,11 +141,12 @@ customElements.define('my-chat-application',
       myMessengeElement.classList.add('messageStyle')
 
       this.#messageArea.appendChild(myMessengeElement)
+      this.#userNameShower.classList.add('username2')
+      this.#userNameShower.textContent = `Chatting as: ${this.#userName}`
     }
 
     /**
-     *
-     * @param message
+     * Sends a message through the WebSocket.
      */
     getMessage () {
       const theMessage = this.#textInput.value.trim()
@@ -165,8 +171,9 @@ customElements.define('my-chat-application',
     }
 
     /**
+     * Saves a message to local storage.
      *
-     * @param message
+     * @param {Object} message - The message to save.
      */
     saveMessageToLocalStorage (message) {
       const messages = JSON.parse(localStorage.getItem('messages')) || []
@@ -179,7 +186,7 @@ customElements.define('my-chat-application',
     }
 
     /**
-     *
+     * Loads messages from local storage and displays them.
      */
     loadMessageFromLocalStorage () {
       const messages = JSON.parse(localStorage.getItem('messages')) || []
