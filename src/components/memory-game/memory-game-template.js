@@ -1,7 +1,7 @@
 export const template = document.createElement('template')
 
 template.innerHTML = `
-
+<memory-timer id='memoryTimer'> </memory-timer>
 <div id='memory-board'> 
 
 </div>

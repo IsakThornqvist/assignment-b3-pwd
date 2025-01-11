@@ -1,5 +1,6 @@
 import { template } from './memory-game-template.js'
 import '../flipping-tile/index.js'
+import '../memory-timer/index.js'
 
 customElements.define('memory-game',
   /**
@@ -27,6 +28,7 @@ customElements.define('memory-game',
     #abortController = new AbortController()
     #nextFlipReady = true
     #timeoutDuration = 500
+    #memoryTimer
 
     /**
      * Constructor for the memory-game element.
@@ -40,6 +42,7 @@ customElements.define('memory-game',
       this.#button4x4 = this.shadowRoot.querySelector('#button4x4')
       this.#button4x2 = this.shadowRoot.querySelector('#button4x2')
       this.#button2x2 = this.shadowRoot.querySelector('#button2x2')
+      this.#memoryTimer = this.shadowRoot.querySelector('#memoryTimer')
     }
 
     /**
@@ -61,6 +64,7 @@ customElements.define('memory-game',
 
         this.#selectedTiles.push(tile)
         tile.flipTile()
+        this.#memoryTimer.startTimer()
 
         if (this.#selectedTiles.length === 2) {
           const [firstTile, secondTile] = this.#selectedTiles
