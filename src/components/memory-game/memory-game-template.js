@@ -1,6 +1,7 @@
 export const template = document.createElement('template')
 
 template.innerHTML = `
+<memory-end-screen id='memoryEndScreen' class='hidden'> </memory-end-screen>
 <memory-timer id='memoryTimer'> </memory-timer>
 <div id='memory-board'> 
 
@@ -60,6 +61,12 @@ template.innerHTML = `
     gap: 1rem;
     margin-top: 20px;
 }
+
+.hidden {
+    display: none;
+}
+
+
 
 </style>
 

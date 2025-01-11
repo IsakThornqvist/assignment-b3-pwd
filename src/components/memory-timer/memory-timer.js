@@ -9,6 +9,7 @@ customElements.define('memory-timer',
     #memoryTimer
     #seconds = 0
     #timerInterval
+    #score = 0
     /**
      *
      */
@@ -54,6 +55,50 @@ customElements.define('memory-timer',
           composed: true
         }))
       }
+    }
+
+    /**
+     *
+     */
+    updateScore () {
+      this.#score++ // Öka poängen
+      this.updateScoreDisplay()
+    }
+
+    /**
+     *
+     */
+    updateScoreDisplay () {
+      const scoreElement = this.shadowRoot.querySelector('#score')
+      if (scoreElement) {
+        scoreElement.textContent = `Attempts: ${this.#score}`
+      }
+    }
+
+    /**
+     *
+     */
+    resetScore () {
+      this.#score = 0
+      this.updateScoreDisplay()
+    }
+
+    /**
+     *
+     */
+    resetTimer () {
+      this.stopTimer()
+      this.#seconds = 0
+
+      const timeElement = this.shadowRoot.querySelector('#time')
+      if (timeElement) {
+        timeElement.textContent = 'Time: 0'
+      }
+
+      this.dispatchEvent(new CustomEvent('timer-reset', {
+        bubbles: true,
+        composed: true
+      }))
     }
 
     /**

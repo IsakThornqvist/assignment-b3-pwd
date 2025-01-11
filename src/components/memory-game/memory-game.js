@@ -1,10 +1,11 @@
 import { template } from './memory-game-template.js'
 import '../flipping-tile/index.js'
 import '../memory-timer/index.js'
+import '../memory-end-screen/index.js'
 
 customElements.define('memory-game',
   /**
-   * Custom element representing a memory game.
+   *
    */
   class extends HTMLElement {
     #memoryGame
@@ -29,9 +30,13 @@ customElements.define('memory-game',
     #nextFlipReady = true
     #timeoutDuration = 500
     #memoryTimer
+    #memoryEndScreen
+    #hiddenTilesCount = 0
+    #totalTiles = 0
+    #score = 0
 
     /**
-     * Constructor for the memory-game element.
+     *
      */
     constructor () {
       super()
@@ -43,6 +48,7 @@ customElements.define('memory-game',
       this.#button4x2 = this.shadowRoot.querySelector('#button4x2')
       this.#button2x2 = this.shadowRoot.querySelector('#button2x2')
       this.#memoryTimer = this.shadowRoot.querySelector('#memoryTimer')
+      this.#memoryEndScreen = this.shadowRoot.querySelector('#memoryEndScreen')
     }
 
     /**
@@ -51,10 +57,28 @@ customElements.define('memory-game',
     connectedCallback () {
       const signal = this.#abortController.signal
 
-      this.#button4x4.addEventListener('click', () => this.createTiles(4, 4), { signal })
-      this.#button4x2.addEventListener('click', () => this.createTiles(4, 2), { signal })
-      this.#button2x2.addEventListener('click', () => this.createTiles(2, 2), { signal })
-      this.#resetButton.addEventListener('click', () => this.createTiles(4, 4), { signal })
+      this.#button4x4.addEventListener('click', () => {
+        this.createTiles(4, 4)
+        this.#memoryTimer.resetTimer()
+        this.#memoryTimer.resetScore()
+      }, { signal })
+
+      this.#button4x2.addEventListener('click', () => {
+        this.createTiles(4, 2)
+        this.#memoryTimer.resetTimer()
+        this.#memoryTimer.resetScore()
+      }, { signal })
+
+      this.#button2x2.addEventListener('click', () => {
+        this.createTiles(2, 2)
+        this.#memoryTimer.resetTimer()
+        this.#memoryTimer.resetScore()
+      }, { signal })
+      this.#resetButton.addEventListener('click', () => {
+        this.createTiles(4, 4)
+        this.#memoryTimer.resetTimer()
+        this.#memoryTimer.resetScore()
+      }, { signal })
 
       this.shadowRoot.addEventListener('tile-clicked', event => {
         if (!this.#nextFlipReady) return
@@ -79,6 +103,15 @@ customElements.define('memory-game',
               secondTile.hideTile()
               this.#selectedTiles = []
               this.#nextFlipReady = true
+
+              // Öka antalet dolda tiles
+              this.#hiddenTilesCount += 2
+              this.#memoryTimer.updateScore()
+              // Kontrollera om spelet är klart
+              if (this.#hiddenTilesCount === this.#totalTiles) {
+                this.#memoryTimer.stopTimer() // Stoppa timern
+                this.showEndScreen() // Visa slutskärmen
+              }
             }, this.#timeoutDuration)
           } else {
             setTimeout(() => {
@@ -86,6 +119,7 @@ customElements.define('memory-game',
               secondTile.resetTile()
               this.#selectedTiles = []
               this.#nextFlipReady = true
+              this.#memoryTimer.updateScore()
             }, this.#timeoutDuration)
           }
         }
@@ -123,6 +157,9 @@ customElements.define('memory-game',
       this.#memoryGame.style.gridTemplateRows = `repeat(${rows}, ${tileSize})`
 
       const totalTiles = rows * columns
+      this.#totalTiles = totalTiles // Spara totalt antal tiles
+      this.#hiddenTilesCount = 0 // Återställ dolda tiles-räkning
+
       const uniqueImagesNeeded = totalTiles / 2
 
       let images = []
@@ -140,7 +177,18 @@ customElements.define('memory-game',
         backSide.style.backgroundPosition = 'center'
 
         this.#memoryGame.appendChild(newTile)
+        this.#memoryGame.style.display = ''
+        this.#memoryEndScreen.classList.add('hidden')
       }
+    }
+
+    /**
+     *
+     */
+    showEndScreen () {
+      console.log('End screen shown')
+      this.#memoryEndScreen.classList.remove('hidden')
+      this.#memoryGame.style.display = 'none'
     }
 
     /**
