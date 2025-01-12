@@ -4,14 +4,14 @@ import { LocalStorage } from '../local-storage/local-storage.js'
 customElements.define('my-username',
 
   /**
-   *
+   * Custom element for handling username input and submission.
    */
   class extends HTMLElement {
     #myUsername
     #sendButton
     #userNameInput
     /**
-     *
+     * Constructor for the my-username element.
      */
     constructor () {
       super()
@@ -58,8 +58,10 @@ customElements.define('my-username',
     }
 
     /**
+     * Retrieves the nickname from the input field, dispatches a custom event if the nickname is valid.
      *
-     * @param nickName
+     * @param {string} nickName - The nickname to be set.
+     * @returns {string} The trimmed nickname.
      */
     getNickName (nickName) {
       const nickname = this.#userNameInput.value.trim()
@@ -78,7 +80,3 @@ customElements.define('my-username',
       return nickName
     }
   })
-
-// spara namn i lokal storage NÄR MAN ÖPPNAR APPEN KOLLAR DEN LOKAL STORAGE
-// DIREKT TILKLK CHATTEB
-// KOLAL ISSUE TIDARE MNEDDEALNDE 20 ST

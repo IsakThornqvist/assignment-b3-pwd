@@ -51,7 +51,15 @@ customElements.define('my-window',
 
       this.#closeButton.addEventListener('click', event => {
         console.log('window closed')
-        // this.classList.add('hidden')
+
+        // Dispatch custom event for window close
+        this.dispatchEvent(new CustomEvent('window-closed', {
+          bubbles: true, // Allow event to bubble up the DOM
+          composed: true, // Allow event to cross Shadow DOM boundaries
+          detail: { window: this }
+        }))
+
+        // Remove the window
         this.remove()
       }, { signal })
 
@@ -78,8 +86,9 @@ customElements.define('my-window',
     }
 
     /**
+     * Sets the title of the window.
      *
-     * @param newTitle
+     * @param {string} newTitle - The new title for the window.
      */
     setWindowTitle (newTitle) {
       this.#windowTitle.textContent = newTitle
@@ -127,15 +136,3 @@ customElements.define('my-window',
       console.log('Event listeners cleaned up in window.')
     }
   })
-
-// service worker
-// egen fil
-// visas bra i videon
-
-// cache storage och cacha saker måste jag kolla upp
-// man  kan skapa en async function
-
-// .webmanifest ????
-// peka ut manifest filen i index.html
-
-// routing sidan ska inter laddas om

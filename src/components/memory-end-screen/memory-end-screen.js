@@ -8,7 +8,7 @@ customElements.define('memory-end-screen',
   class extends HTMLElement {
     #memoryEndScreen
     /**
-     *
+     * Custom element representing the end screen of the memory game.
      */
     constructor () {
       super()

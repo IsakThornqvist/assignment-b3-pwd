@@ -3,7 +3,7 @@ import { template } from './memory-timer-template.js'
 customElements.define('memory-timer',
 
   /**
-   *
+   * Custom element representing a memory timer.
    */
   class extends HTMLElement {
     #memoryTimer
@@ -11,7 +11,7 @@ customElements.define('memory-timer',
     #timerInterval
     #score = 0
     /**
-     *
+     * Constructor for the memory-timer element.
      */
     constructor () {
       super()
@@ -22,22 +22,9 @@ customElements.define('memory-timer',
     }
 
     /**
+     * Starts the timer.
      *
-     */
-    connectedCallback () {
-      console.log('memory timer added')
-    }
-
-    /**
-     *
-     */
-    disconnectedCallback () {
-
-    }
-
-    /**
-     *
-     * @param seconds
+     * @param {number} seconds - The initial seconds to start the timer from.
      */
     startTimer (seconds) {
       if (!this.#timerInterval) {
@@ -58,7 +45,7 @@ customElements.define('memory-timer',
     }
 
     /**
-     *
+     * Updates the score.
      */
     updateScore () {
       this.#score++ // Öka poängen
@@ -66,7 +53,7 @@ customElements.define('memory-timer',
     }
 
     /**
-     *
+     * Updates the score display.
      */
     updateScoreDisplay () {
       const scoreElement = this.shadowRoot.querySelector('#score')
@@ -76,7 +63,7 @@ customElements.define('memory-timer',
     }
 
     /**
-     *
+     * Resets the score.
      */
     resetScore () {
       this.#score = 0
@@ -84,7 +71,7 @@ customElements.define('memory-timer',
     }
 
     /**
-     *
+     * Resets the timer.
      */
     resetTimer () {
       this.stopTimer()
@@ -102,7 +89,7 @@ customElements.define('memory-timer',
     }
 
     /**
-     *
+     * Stops the timer.
      */
     stopTimer () {
       if (this.#timerInterval) {
