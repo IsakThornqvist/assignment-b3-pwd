@@ -8,6 +8,11 @@ template.innerHTML = `
 </div>
 
 <style>
+    :host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
     #scoreAndTime {
         font-size: 1.5rem;
         font-weight: bold;
@@ -19,5 +24,7 @@ template.innerHTML = `
         width: 300px;
         padding: 10px;
       }
+
+
       </style>
 `
