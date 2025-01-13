@@ -57,11 +57,10 @@ customElements.define('memory-game',
     connectedCallback () {
       const signal = this.#abortController.signal
 
-      // Lägg till lyssnare för 'window-closed'
       document.addEventListener('window-closed', event => {
         console.log('Memory game: Window closed detected')
 
-        // Återställ timer och poäng
+        // Reset timer and points
         this.#memoryTimer.resetTimer()
         this.#memoryTimer.resetScore()
       }, { signal })
@@ -122,7 +121,7 @@ customElements.define('memory-game',
 
               this.#hiddenTilesCount += 2
               this.#memoryTimer.updateScore()
-
+              // Check if all tiles are hidden
               if (this.#hiddenTilesCount === this.#totalTiles) {
                 this.#memoryTimer.stopTimer()
                 this.showEndScreen()
@@ -168,6 +167,7 @@ customElements.define('memory-game',
     createTiles (rows, columns) {
       this.clearTiles()
       const tileSize = '100px'
+      // Create the layout of the board based on rows and columns
       this.#memoryGame.style.gridTemplateColumns = `repeat(${columns}, ${tileSize})`
       this.#memoryGame.style.gridTemplateRows = `repeat(${rows}, ${tileSize})`
 
@@ -181,9 +181,10 @@ customElements.define('memory-game',
       for (let i = 0; i < uniqueImagesNeeded; i++) {
         images.push(this.#tileImages[i % this.#tileImages.length])
       }
+      // Make two of wach image
       images = [...images, ...images]
       this.#shuffledImages = this.shuffleMemory(images)
-
+      // Add tiles to the board
       for (let i = 0; i < totalTiles; i++) {
         const newTile = document.createElement('flipping-tile')
         const backSide = newTile.shadowRoot.querySelector('#back')

@@ -3,10 +3,8 @@ export const template = document.createElement('template')
 template.innerHTML = `
 <div id='my-chat-application'>
     <my-username> </my-username>
-    <form id="textArea">
-        <div id='messageArea' class='hidden'> </div>
-        <textarea id="textInput" rows='2' cols='35' placeholder="Send a message" class='hidden'></textarea>
-      </form>
+        <div id='messageContainer' class='hidden'> </div>
+        <textarea id="textField" cols='35' rows='2' placeholder="Send a message" class='hidden'></textarea>
     </div>
     <p id='chattingName' class='hidden'></p>  
       <button type="submit" id="sendButton" class='hidden'>Send</button>
@@ -25,7 +23,6 @@ template.innerHTML = `
   margin-left: 10px;
 }
 
-/* test */ 
 
 #sendButton {
     background-color: rgb(241, 190, 48);
@@ -58,7 +55,7 @@ template.innerHTML = `
     
   }
   #messageArea {
-    max-height: 400px; 
+  max-height: 400px; 
   overflow-y: auto;
   padding: 10px; 
   border: 1px solid #ccc; 

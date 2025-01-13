@@ -29,8 +29,8 @@ customElements.define('my-chat-application',
       this.shadowRoot.appendChild(template.content.cloneNode(true))
       this.#myChat = this.shadowRoot.querySelector('#my-chat-application')
       this.#sendButton = this.shadowRoot.querySelector('#sendButton')
-      this.#textInput = this.shadowRoot.querySelector('#textInput')
-      this.#messageArea = this.shadowRoot.querySelector('#messageArea')
+      this.#textInput = this.shadowRoot.querySelector('#textField')
+      this.#messageArea = this.shadowRoot.querySelector('#messageContainer')
       this.#userNameShower = this.shadowRoot.querySelector('#chattingName')
     }
 
@@ -122,6 +122,7 @@ customElements.define('my-chat-application',
       }
       this.#processedMessages.add(messageKey)
 
+      // Created the HTML for the messages
       const myMessengeElement = document.createElement('div')
       myMessengeElement.classList.add('messageStyle')
       myMessengeElement.setAttribute('data-message-key', messageKey)
@@ -168,7 +169,6 @@ customElements.define('my-chat-application',
       })
       localStorage.setItem('messages', JSON.stringify(updatedMessages))
 
-      // Remove from DOM
       messageElement.remove()
       this.#processedMessages.delete(messageKey)
 
@@ -208,7 +208,7 @@ customElements.define('my-chat-application',
     saveMessageToLocalStorage (message) {
       const messages = JSON.parse(localStorage.getItem('messages')) || []
       messages.push(message)
-
+      // Max 20 messages
       if (messages.length > 20) {
         messages.shift()
       }
