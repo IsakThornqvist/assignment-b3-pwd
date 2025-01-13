@@ -33,7 +33,7 @@ customElements.define('my-username',
       const savedUsername = LocalStorage.getSavedUsername()
       if (savedUsername) {
         this.classList.add('hidden')
-        console.log('welcome back 2', savedUsername)
+        console.log('welcome back:', savedUsername)
       } else {
         this.#sendButton.addEventListener('click', event => {
           event.preventDefault()

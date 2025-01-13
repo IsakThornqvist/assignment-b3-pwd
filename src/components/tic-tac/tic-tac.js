@@ -43,7 +43,6 @@ customElements.define('tic-tac-toe',
      */
     disconnectedCallback () {
       this.#abortController.abort()
-      console.log('Tic Tac cleaned up.')
     }
 
     /**

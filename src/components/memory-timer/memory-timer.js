@@ -30,7 +30,6 @@ customElements.define('memory-timer',
       if (!this.#timerInterval) {
         this.#timerInterval = setInterval(() => {
           this.#seconds++
-          console.log(this.#seconds)
           const timeElement = this.shadowRoot.querySelector('#time')
 
           if (timeElement) {

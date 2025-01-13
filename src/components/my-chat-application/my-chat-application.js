@@ -47,7 +47,6 @@ customElements.define('my-chat-application',
         this.#textInput.classList.remove('hidden')
         this.#messageArea.classList.remove('hidden')
         this.#userNameShower.classList.remove('hidden')
-        console.log('welcome back', savedUsername)
       } else {
         this.shadowRoot.querySelector('my-username').classList.remove('hidden')
       }

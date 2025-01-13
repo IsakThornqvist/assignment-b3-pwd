@@ -39,7 +39,6 @@ customElements.define('flipping-tile',
      */
     disconnectedCallback () {
       this.#abortController.abort()
-      console.log('Event listeners cleaned up in flipping-tile.')
     }
 
     /**

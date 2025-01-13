@@ -34,7 +34,7 @@ customElements.define('my-window',
      */
     connectedCallback () {
       if (this.#myWindow) {
-        console.log('window added to shadowDOM')
+        console.log('window added to DOM')
       } else {
         console.error('Failed to find #myWindow in Shadow DOM')
       }
@@ -50,8 +50,6 @@ customElements.define('my-window',
       }, { signal })
 
       this.#closeButton.addEventListener('click', event => {
-        console.log('window closed')
-
         // Dispatch custom event for window close
         this.dispatchEvent(new CustomEvent('window-closed', {
           bubbles: true, // Allow event to bubble up the DOM
@@ -108,11 +106,6 @@ customElements.define('my-window',
 
       this.#myWindow.style.top = (this.#myWindow.offsetTop - this.#newY) + 'px'
       this.#myWindow.style.left = (this.#myWindow.offsetLeft - this.#newX) + 'px'
-
-      console.log('newX', this.#newX)
-      console.log('newY', this.#newY)
-      console.log('startX', this.#startX)
-      console.log('startY', this.#startY)
     }
 
     /**
@@ -122,7 +115,6 @@ customElements.define('my-window',
      */
     mouseUp (e) {
       if (this.#isDragging) {
-        console.log('Dragging ended')
         this.#isDragging = false
       }
     }
@@ -132,6 +124,5 @@ customElements.define('my-window',
      */
     disconnectedCallback () {
       this.#abortController.abort()
-      console.log('Event listeners cleaned up in window.')
     }
   })

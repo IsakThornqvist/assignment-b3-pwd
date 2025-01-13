@@ -148,7 +148,6 @@ customElements.define('memory-game',
      */
     disconnectedCallback () {
       this.#abortController.abort()
-      console.log('Event listeners cleaned up in memory-game.')
     }
 
     /**
@@ -202,7 +201,6 @@ customElements.define('memory-game',
      * Shows the end screen when the game is over.
      */
     showEndScreen () {
-      console.log('End screen shown')
       this.#memoryEndScreen.classList.remove('hidden')
       this.#memoryGame.style.display = 'none'
     }
@@ -241,7 +239,6 @@ customElements.define('memory-game',
         const j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]] // Swap elements
       }
-      console.log(arr)
       return arr
     }
   })
