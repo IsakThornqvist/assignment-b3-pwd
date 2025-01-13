@@ -1,7 +1,6 @@
 export const template = document.createElement('template')
 
 template.innerHTML = `
-<!--     <p id="scoreAndTime">Score: <span id="score"></span> | Time:<span id="time"></span></p> -->
     <div id="scoreAndTime">
     <p id="score"> Score:</p>
     <p id="time"> Time:</p>

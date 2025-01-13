@@ -17,6 +17,7 @@ customElements.define('my-chat-application',
     #processedMessages = new Set()
     #onMessageHandler
     #userNameShower
+    #abortController = new AbortController()
 
     /**
      * Constructor for the my-chat-application element.
@@ -37,6 +38,8 @@ customElements.define('my-chat-application',
      * Called when the element is added to the DOM.
      */
     connectedCallback () {
+      const signal = this.#abortController.signal
+
       const savedUsername = LocalStorage.getSavedUsername()
       if (savedUsername) {
         this.#userName = savedUsername
@@ -55,7 +58,7 @@ customElements.define('my-chat-application',
           event.preventDefault()
           this.getMessage()
         }
-      })
+      }, { signal })
 
       this.shadowRoot.addEventListener('username-submitted', event => {
         this.#userName = event.detail.nickname
@@ -64,7 +67,7 @@ customElements.define('my-chat-application',
         this.#textInput.classList.remove('hidden')
         this.#messageArea.classList.remove('hidden')
         this.#userNameShower.classList.remove('hidden')
-      })
+      }, { signal })
 
       this.loadMessageFromLocalStorage()
       this.connectWebSocket()
@@ -225,6 +228,7 @@ customElements.define('my-chat-application',
      * Called when the element is removed from the DOM.
      */
     disconnectedCallback () {
+      this.#abortController.abort()
       if (this.#socket) {
         this.#socket.close()
       }

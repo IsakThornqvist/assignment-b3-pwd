@@ -42,7 +42,7 @@ customElements.define('tic-tac-toe',
      * Called when the element is removed from the DOM.
      */
     disconnectedCallback () {
-      this.#abortController.abort() // Clean up event listeners
+      this.#abortController.abort()
       console.log('Tic Tac cleaned up.')
     }
 

@@ -34,7 +34,6 @@ customElements.define('memory-game',
     #memoryEndScreen
     #hiddenTilesCount = 0
     #totalTiles = 0
-    #score = 0
 
     /**
      * Constructor for the memory-game element.

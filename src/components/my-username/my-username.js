@@ -10,6 +10,7 @@ customElements.define('my-username',
     #myUsername
     #sendButton
     #userNameInput
+    #abortController = new AbortController()
     /**
      * Constructor for the my-username element.
      */
@@ -27,6 +28,8 @@ customElements.define('my-username',
      * Called when the element is added to the DOM.
      */
     connectedCallback () {
+      const signal = this.#abortController.signal
+
       const savedUsername = LocalStorage.getSavedUsername()
       if (savedUsername) {
         this.classList.add('hidden')
@@ -37,7 +40,7 @@ customElements.define('my-username',
           this.getNickName()
           this.#myUsername.classList.add('hidden')
           this.#sendButton.classList.add('hidden')
-        })
+        }, { signal })
 
         this.#userNameInput.addEventListener('keydown', event => {
           if (event.key === 'Enter') {
@@ -46,7 +49,7 @@ customElements.define('my-username',
             this.#myUsername.classList.add('hidden')
             this.#sendButton.classList.add('hidden')
           }
-        })
+        }, { signal })
       }
     }
 
@@ -54,7 +57,7 @@ customElements.define('my-username',
      * Called when the element is removed from the DOM.
      */
     disconnectedCallback () {
-
+      this.#abortController.abort()
     }
 
     /**

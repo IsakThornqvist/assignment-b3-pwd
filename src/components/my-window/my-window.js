@@ -59,7 +59,6 @@ customElements.define('my-window',
           detail: { window: this }
         }))
 
-        // Remove the window
         this.remove()
       }, { signal })
 
