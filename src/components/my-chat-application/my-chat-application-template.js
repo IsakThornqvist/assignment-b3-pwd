@@ -4,13 +4,12 @@ template.innerHTML = `
 <div id='my-chat-application'>
     <my-username> </my-username>
     <form id="textArea">
-        <div id='messageArea'> </div>
+        <div id='messageArea' class='hidden'> </div>
         <textarea id="textInput" rows='2' cols='35' placeholder="Send a message" class='hidden'></textarea>
       </form>
     </div>
     <p id='chattingName' class='hidden'></p>  
       <button type="submit" id="sendButton" class='hidden'>Send</button>
-      <button type="button" id="clearLocalStorageButton" >Clear Local Storage</button>
 </div>
 
 

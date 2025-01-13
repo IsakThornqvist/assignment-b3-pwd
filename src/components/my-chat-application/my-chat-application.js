@@ -42,6 +42,7 @@ customElements.define('my-chat-application',
         this.#userName = savedUsername
         this.#sendButton.classList.remove('hidden')
         this.#textInput.classList.remove('hidden')
+        this.#messageArea.classList.remove('hidden')
         this.#userNameShower.classList.remove('hidden')
         console.log('welcome back', savedUsername)
       } else {
@@ -61,17 +62,8 @@ customElements.define('my-chat-application',
         localStorage.setItem('username', this.#userName)
         this.#sendButton.classList.remove('hidden')
         this.#textInput.classList.remove('hidden')
+        this.#messageArea.classList.remove('hidden')
         this.#userNameShower.classList.remove('hidden')
-      })
-
-      const clearLocalStorageButton = this.shadowRoot.querySelector('#clearLocalStorageButton')
-      clearLocalStorageButton.addEventListener('click', () => {
-        localStorage.clear()
-        console.log('Local Storage cleared')
-        this.#userName = null
-        this.shadowRoot.querySelector('my-username').classList.remove('hidden')
-        this.#sendButton.classList.add('hidden')
-        this.#textInput.classList.add('hidden')
       })
 
       this.loadMessageFromLocalStorage()

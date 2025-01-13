@@ -13,10 +13,10 @@ template.innerHTML = `
         <img class='iconImage' src='img/MEMORY-ICON.png' alt='Memory Logo'>
     </div>
     <div class='appIcon' id='appLogo2'>
-        <img class='iconImage' src='img/CHAT-LOGO.png' alt='Chat Logo'>
+        <img class='iconImage' src='img/CHAT-LOGO2.png' alt='Chat Logo'>
     </div>
     <div class='appIcon' id='appLogo3'>
-        <img class='iconImage' src='img/QUIZ-LOGO.png' alt='Tic Tac Logo'>
+        <img class='iconImage' src='img/TIC-TAC-LOGO.png' alt='Tic Tac Logo'>
     </div>
 </div>
 
@@ -27,16 +27,26 @@ template.innerHTML = `
     }
 
     .iconImage {
-        width: 40px; /* Sätt storleken på bilderna */
-        height: auto; /* Bevarar proportionerna */
+        width: 40px;
+        height: auto; 
         display: block;
         margin: auto;
     }
 
+    #appLogo2 img {
+        width: 70px;
+        height: 50px;
+    }
+
+    #appLogo3 img{
+        width: 70px;
+        height: 50px;
+    }
+
     #backGroundImage {
-        width: 800px; /* Bredden på bilden */
-        height: auto; /* Bevarar proportionerna */
-        margin: 100px auto; /* Centrerar bilden horisontellt */
+        width: 800px;
+        height: auto;
+        margin: 100px auto;
         display: block; 
     }
 
@@ -77,7 +87,7 @@ template.innerHTML = `
     .appIcon {
         background-color: #333;
         color: black;
-        border: 2px solid rgb(241, 190, 48);
+        border: 2px solid white;
         border-radius: 5px;
         cursor: pointer;
         transition: 0.5s;
@@ -90,7 +100,7 @@ template.innerHTML = `
     }
 
     .appIcon:hover {
-        background-color: rgb(241, 190, 48);
+        background-color: white;
     }
 </style>
 `
