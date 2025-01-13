@@ -45,7 +45,7 @@ template.innerHTML = `
     background-color: rgb(255, 187, 0);
   }
 
-  #textInput {
+  #textField {
     border: 2px solid rgb(241, 190, 48);
     margin-top: 10px;
   }
@@ -54,8 +54,8 @@ template.innerHTML = `
     display: none;
     
   }
-  #messageArea {
-  max-height: 400px; 
+  #messageContainer {
+    max-height: 400px; 
   overflow-y: auto;
   padding: 10px; 
   border: 1px solid #ccc; 
@@ -81,8 +81,5 @@ template.innerHTML = `
 .messageStyle {
     padding-bottom: 10px;
 }
-
-
-
 </style>
 `
