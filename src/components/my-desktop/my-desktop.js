@@ -1,8 +1,8 @@
 import { template } from './my-desktop-template.js'
 import '../my-window/index.js'
 import '../memory-game/index.js'
-import '../quiz-application/index.js'
 import '../my-chat-application/index.js'
+import '../tic-tac/index.js'
 
 customElements.define('my-desktop',
 
@@ -50,7 +50,7 @@ customElements.define('my-desktop',
 
       this.#appThree.addEventListener('click', () => {
         console.log('App Three Clicked')
-        this.createNewWindow('quiz-application')
+        this.createNewWindow('tic-tac-toe')
       }, { signal })
 
       this.shadowRoot.addEventListener('window-clicked', event => {
@@ -86,8 +86,8 @@ customElements.define('my-desktop',
         newWindow.setWindowTitle('Memory Game')
       } else if (appName === 'my-chat-application') {
         newWindow.setWindowTitle('Chat Application')
-      } else if (appName === 'quiz-application') {
-        newWindow.setWindowTitle('Real Madrid Quiz')
+      } else if (appName === 'tic-tac-toe') {
+        newWindow.setWindowTitle('Tic-Tac-Toe')
       }
       // Add the app to the desktop
       this.#myDesktop.appendChild(newWindow)

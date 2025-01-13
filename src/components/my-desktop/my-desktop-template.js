@@ -16,7 +16,7 @@ template.innerHTML = `
         <img class='iconImage' src='img/CHAT-LOGO.png' alt='Chat Logo'>
     </div>
     <div class='appIcon' id='appLogo3'>
-        <img class='iconImage' src='img/QUIZ-LOGO.png' alt='Quiz Logo'>
+        <img class='iconImage' src='img/QUIZ-LOGO.png' alt='Tic Tac Logo'>
     </div>
 </div>
 
