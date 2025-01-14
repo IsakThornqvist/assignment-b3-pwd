@@ -9,7 +9,7 @@ template.innerHTML = `
 
 <style>
 #flipping-tile {
-  position: relative; /* Makes this a positioning container */
+  position: relative;
   width: 80px;
   height: 80px;
   perspective: 1000px; /* Enables 3D perspective */
@@ -20,14 +20,13 @@ template.innerHTML = `
 }
 
 #flipping-tile.flipped {
-  transform: rotateY(180deg); /* Rotates the card */
+  transform: rotateY(180deg);
 }
 
 .hidden {
   display: none;
 }
 
-/* Front and back sides fill the entire button */
 #front,
 #back {
   position: absolute; /* Relative to the parent (#flipping-tile) */
@@ -35,7 +34,7 @@ template.innerHTML = `
   left: 0;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden; /* Hide the back side */
+  backface-visibility: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,12 +47,12 @@ template.innerHTML = `
 
 #front {
   background-color: rgb(241, 190, 48);
-  transform: rotateY(0deg); /* Default position for the front side */
+  transform: rotateY(0deg);
 }
 
 #back {
   background-color: rgb(63, 104, 192);
-  transform: rotateY(180deg); /* Rotated 180 degrees for the back side */
+  transform: rotateY(180deg);
 }
 
 </style>

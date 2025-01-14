@@ -31,10 +31,8 @@ customElements.define('tic-tac-toe',
     connectedCallback () {
       const signal = this.#abortController.signal
 
-      // Initialize the game
       this.#initializeGame()
 
-      // Add restart button event listener
       this.#restartButton.addEventListener('click', () => this.#restartGame(), { signal })
     }
 

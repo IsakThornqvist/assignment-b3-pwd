@@ -80,6 +80,10 @@ template.innerHTML = `
 
 .messageStyle {
     padding-bottom: 10px;
+    max-width: 400px;
+    word-wrap: break-word;
+      word-break: break-all; 
+      white-space: pre-wrap;
 }
 </style>
 `

@@ -47,7 +47,7 @@ customElements.define('memory-timer',
      * Updates the score.
      */
     updateScore () {
-      this.#score++ // Öka poängen
+      this.#score++
       this.updateScoreDisplay()
     }
 

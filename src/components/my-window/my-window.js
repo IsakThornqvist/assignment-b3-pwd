@@ -52,8 +52,8 @@ customElements.define('my-window',
       this.#closeButton.addEventListener('click', event => {
         // Dispatch custom event for window close
         this.dispatchEvent(new CustomEvent('window-closed', {
-          bubbles: true, // Allow event to bubble up the DOM
-          composed: true, // Allow event to cross Shadow DOM boundaries
+          bubbles: true,
+          composed: true,
           detail: { window: this }
         }))
 
