@@ -1,5 +1,8 @@
 # Personal Web Desktop (PWD)
 
+<img width="2558" height="1302" alt="image" src="https://github.com/user-attachments/assets/4527c757-f6a2-4957-98ee-f426f0a6770d" />
+
+
 ## Introduction
 
 In this examination assignment, you will focus on building a single-page application (SPA) with chat integration against a web socket server. This assignment's backend (server-side code) will be given, and your assignment is to write the client-side code.
